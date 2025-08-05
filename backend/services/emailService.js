@@ -8,6 +8,11 @@ const handlebars = require('handlebars');
 const fs = require('fs').promises;
 const path = require('path');
 
+// Register Handlebars helpers
+handlebars.registerHelper('eq', function (a, b) {
+    return a === b;
+});
+
 // Import utilities
 const { safeDebugLog, safeDebugError, safeDebugWarn } = require('../../shared/utils/errorHandler');
 
@@ -17,7 +22,16 @@ class EmailService {
     this.templates = new Map();
     this.initialized = false;
     
-    this.initializeService();
+    // Don't initialize on startup - lazy load when first used
+  }
+
+  /**
+   * Ensure service is initialized before use (lazy initialization)
+   */
+  async ensureInitialized() {
+    if (!this.initialized) {
+      await this.initializeService();
+    }
   }
 
   /**
@@ -65,14 +79,17 @@ class EmailService {
         this.transporter = this.createConsoleTransporter();
       }
     } else {
-      // Production email setup
-      this.transporter = nodemailer.createTransporter({
-        host: process.env.SMTP_HOST || 'smtp.gmail.com',
-        port: parseInt(process.env.SMTP_PORT || '587'),
-        secure: process.env.SMTP_SECURE === 'true',
+      // Production email setup using Firebase config
+      const functions = require('firebase-functions');
+      const config = functions.config();
+      
+      this.transporter = nodemailer.createTransport({
+        host: config.smtp?.host || 'smtp.zoho.com',
+        port: parseInt(config.smtp?.port || '587'),
+        secure: config.smtp?.secure === 'true',
         auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASSWORD
+          user: config.smtp?.user || 'notifications@foamfighters.uk',
+          pass: config.smtp?.password
         }
       });
     }
@@ -410,6 +427,21 @@ class EmailService {
    */
   async sendTemplatedEmail(templateType, to, templateData, priority = 'normal') {
     try {
+      // TEMPORARY: Skip email sending for testing - just log to console
+      safeDebugLog('Email would be sent', {
+        templateType,
+        to,
+        templateData,
+        priority
+      });
+      
+      return { 
+        success: true, 
+        messageId: 'test-' + Date.now(),
+        message: 'Email logging enabled - no actual email sent'
+      };
+
+      /* DISABLED FOR TESTING
       if (!this.initialized) {
         await this.initializeService();
       }
@@ -418,6 +450,7 @@ class EmailService {
       if (!template) {
         throw new Error(`Template not found: ${templateType}`);
       }
+      */
 
       // Prepare email data
       const emailData = {
@@ -541,7 +574,14 @@ class EmailService {
   }
 }
 
-// Create singleton instance
-const emailService = new EmailService();
+// Create singleton instance (lazy-loaded)
+let emailService = null;
 
-module.exports = emailService;
+function getEmailService() {
+  if (!emailService) {
+    emailService = new EmailService();
+  }
+  return emailService;
+}
+
+module.exports = getEmailService();
