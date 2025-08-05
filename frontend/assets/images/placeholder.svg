@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#f8f9fa"/>
+  <rect x="200" y="150" width="400" height="300" fill="#e9ecef" rx="8"/>
+  <circle cx="320" cy="220" r="30" fill="#6c757d"/>
+  <rect x="280" y="270" width="80" height="8" fill="#6c757d" rx="4"/>
+  <rect x="260" y="290" width="120" height="8" fill="#6c757d" rx="4"/>
+  <rect x="290" y="310" width="60" height="8" fill="#6c757d" rx="4"/>
+  <text x="400" y="480" text-anchor="middle" fill="#6c757d" font-family="Arial, sans-serif" font-size="16">Professional Image Placeholder</text>
+</svg>

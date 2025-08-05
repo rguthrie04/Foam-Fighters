@@ -1,0 +1,56 @@
+{
+  "name": "foam-fighters",
+  "version": "1.0.0",
+  "description": "Foam Fighters - Professional spray foam removal company website",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run frontend:start",
+    "build": "npm run frontend:build && npm run backend:build",
+    "dev": "concurrently \"npm run frontend:dev\" \"npm run backend:dev\"",
+    "frontend:dev": "cd frontend && npm run dev",
+    "frontend:start": "cd frontend && npm start",
+    "frontend:build": "cd frontend && npm run build",
+    "backend:dev": "cd backend && npm run dev",
+    "backend:start": "cd backend && npm start",
+    "backend:build": "cd backend && npm run build",
+    "admin:dev": "cd admin && npm run dev",
+    "admin:start": "cd admin && npm start",
+    "admin:build": "cd admin && npm run build",
+    "deploy": "firebase deploy",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:hosting": "firebase deploy --only hosting",
+    "emulators:start": "firebase emulators:start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint . --ext .js,.json",
+    "lint:fix": "eslint . --ext .js,.json --fix"
+  },
+  "keywords": [
+    "spray-foam",
+    "removal",
+    "construction",
+    "property",
+    "uk",
+    "firebase",
+    "nodejs"
+  ],
+  "author": "Foam Fighters Ltd",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^7.6.0",
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^6.1.1"
+  },
+  "dependencies": {
+    "firebase": "^10.7.1",
+    "firebase-admin": "^11.11.1",
+    "firebase-functions": "^4.5.0",
+    "firebase-tools": "^12.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}

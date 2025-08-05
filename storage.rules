@@ -1,0 +1,120 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to get user role from custom claims
+    function getUserRole() {
+      return request.auth.token.role;
+    }
+    
+    // Helper function to check if user has specific role
+    function hasRole(role) {
+      return isAuthenticated() && getUserRole() == role;
+    }
+    
+    // Helper function to check if user has any of the specified roles
+    function hasAnyRole(roles) {
+      return isAuthenticated() && getUserRole() in roles;
+    }
+    
+    // Helper function to validate file type
+    function isValidFileType(allowedTypes) {
+      return resource.contentType in allowedTypes;
+    }
+    
+    // Helper function to validate file size (in MB)
+    function isValidFileSize(maxSizeMB) {
+      return resource.size < maxSizeMB * 1024 * 1024;
+    }
+    
+    // Public assets (website images, documents, etc.)
+    match /public/{allPaths=**} {
+      allow read: if true; // Public read access
+      allow write: if hasAnyRole(['admin', 'manager']);
+    }
+    
+    // User profile images
+    match /profiles/{userId}/{fileName} {
+      allow read: if true; // Public read for profile images
+      allow write: if isAuthenticated() && 
+        (request.auth.uid == userId || hasAnyRole(['admin', 'manager'])) &&
+        isValidFileType(['image/jpeg', 'image/png', 'image/gif', 'image/webp']) &&
+        isValidFileSize(5); // 5MB limit
+    }
+    
+    // Project photos and documentation
+    match /projects/{projectId}/{allPaths=**} {
+      allow read, write: if hasAnyRole(['admin', 'manager', 'technician']) &&
+        isValidFileSize(50); // 50MB limit for project files
+    }
+    
+    // Quote attachments
+    match /quotes/{quoteId}/{fileName} {
+      allow read, write: if hasAnyRole(['admin', 'manager', 'technician']) &&
+        isValidFileSize(20); // 20MB limit
+    }
+    
+    // Customer inquiry attachments
+    match /inquiries/{inquiryId}/{fileName} {
+      allow create: if true && // Allow public uploads with inquiries
+        isValidFileType(['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf']) &&
+        isValidFileSize(10); // 10MB limit
+      allow read, delete: if hasAnyRole(['admin', 'manager', 'technician']);
+    }
+    
+    // Before/after gallery images
+    match /gallery/{category}/{fileName} {
+      allow read: if true; // Public read for gallery
+      allow write: if hasAnyRole(['admin', 'manager']) &&
+        isValidFileType(['image/jpeg', 'image/png', 'image/webp']) &&
+        isValidFileSize(15); // 15MB limit
+    }
+    
+    // Testimonial photos
+    match /testimonials/{testimonialId}/{fileName} {
+      allow read: if true; // Public read
+      allow write: if hasAnyRole(['admin', 'manager']) &&
+        isValidFileType(['image/jpeg', 'image/png', 'image/webp']) &&
+        isValidFileSize(5); // 5MB limit
+    }
+    
+    // Document templates and forms
+    match /documents/{category}/{fileName} {
+      allow read: if hasAnyRole(['admin', 'manager', 'technician']);
+      allow write: if hasAnyRole(['admin', 'manager']);
+    }
+    
+    // Generated reports and PDFs
+    match /reports/{reportId}/{fileName} {
+      allow read, write: if hasAnyRole(['admin', 'manager', 'technician']) &&
+        isValidFileSize(100); // 100MB limit for reports
+    }
+    
+    // Backup files - admin only
+    match /backups/{allPaths=**} {
+      allow read, write: if hasRole('admin');
+    }
+    
+    // Temporary uploads (auto-deleted after 24 hours)
+    match /temp/{allPaths=**} {
+      allow read, write: if isAuthenticated() &&
+        isValidFileSize(50); // 50MB limit for temp files
+    }
+    
+    // System logs and error reports
+    match /logs/{allPaths=**} {
+      allow read: if hasRole('admin');
+      allow create: if true; // Allow system to create logs
+    }
+    
+    // Default deny rule
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

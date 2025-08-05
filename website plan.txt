@@ -1,0 +1,441 @@
+FOAM FIGHTERS WEBSITE - COMPLETE PROJECT SETUP PROMPT
+
+I'm building a new website called "Foam Fighters" - a spray foam removal company website in the UK. I need a complete setup from scratch using Node.js and Firebase exclusively (no third-party hosting like Render).
+
+PROJECT REQUIREMENTS:
+
+## Technical Stack:
+- Frontend: HTML/CSS/JavaScript (vanilla or React)
+- Backend: Node.js with Firebase Functions V2
+- Database: Firestore
+- Hosting: Firebase Hosting
+- Authentication: Firebase Auth
+- Storage: Firebase Storage
+
+## Project Structure Setup:
+1. Create a proper project structure with:
+   - /frontend (client-facing website)
+   - /backend (Firebase Functions)
+   - /admin (employee tools dashboard)
+   - /shared (common utilities)
+
+## CRITICAL ARCHITECTURAL PATTERNS (Implement from Day 1):
+
+### 1. Centralized Firebase Configuration:
+- Create single `/shared/config/firebaseConfig.js` for all Firebase initialization
+- Environment-based configuration (development vs production)
+- Centralized exports for auth, db, functions, storage
+- Proper ES6 module structure that works across all apps
+- ALL apps import from: '../../shared/config/firebaseConfig.js'
+- NEVER create multiple firebase config files
+
+### 2. Centralized Authentication System:
+Create `/shared/auth/authManager.js` with:
+```javascript
+// Essential auth functions:
+async function waitForFirebaseAuth() {
+  return new Promise((resolve) => {
+    if (firebase.auth().currentUser) {
+      resolve(firebase.auth().currentUser);
+    } else {
+      const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        unsubscribe();
+        resolve(user);
+      });
+    }
+  });
+}
+
+async function retryFirestoreQuery(queryFn, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      await waitForFirebaseAuth();
+      return await queryFn();
+    } catch (error) {
+      if (error.code === 'permission-denied' && i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * Math.pow(2, i)));
+        continue;
+      }
+      throw error;
+    }
+  }
+}
+```
+- Role-based access control (admin vs public)
+- Automatic token refresh handling
+- Custom claims for permissions
+
+### 3. URL Configuration Management:
+Create `/shared/config/urls.js` with:
+```javascript
+const config = {
+  development: {
+    api: 'http://localhost:5000',
+    frontend: 'http://localhost:3000',
+    firebase: 'http://localhost:9099'
+  },
+  production: {
+    api: 'https://foamfighters-backend.web.app',
+    frontend: 'https://foamfighters.co.uk',
+    firebase: 'https://us-central1-foamfighters.cloudfunctions.net'
+  },
+  // Utility functions:
+  getApiUrl: () => {...},
+  getFunctionUrl: (functionName) => {...},
+  getFrontendUrl: () => {...}
+};
+
+// Development environment detection:
+const isDevelopment = window.location.hostname === 'localhost' || 
+                     window.location.hostname === '127.0.0.1';
+```
+
+### 4. Memory Management & Performance (Prevent Memory Leaks):
+Create these utility classes immediately:
+```javascript
+// /shared/utils/TimerManager.js - Automatic cleanup of timeouts/intervals
+// /shared/utils/EventListenerManager.js - Managed event listeners with cleanup
+// /shared/utils/BatchQueryService.js - Intelligent query batching with 5-minute caching
+
+// Use these patterns everywhere:
+safeSetTimeout() instead of setTimeout()
+safeSetInterval() instead of setInterval()
+safeAddEventListener() instead of addEventListener()
+```
+
+### 5. Error Handling & Logging:
+Create centralized error handling system:
+```javascript
+// Defensive functions everywhere:
+function safeDebugLog(message, data) {
+  try {
+    if (window.FoamUtils && window.FoamUtils.debugLog) {
+      window.FoamUtils.debugLog(message, data);
+    } else if (console && console.log) {
+      console.log(`[DEBUG] ${message}`, data);
+    }
+  } catch (e) {
+    // Silent fail
+  }
+}
+
+function safeDebugError(message, error) {
+  try {
+    if (window.FoamUtils && window.FoamUtils.debugError) {
+      window.FoamUtils.debugError(message, error);
+    } else if (console && console.error) {
+      console.error(`[ERROR] ${message}`, error);
+    }
+  } catch (e) {
+    // Silent fail
+  }
+}
+```
+
+### 6. Cache Management (Prevent Navigation Issues):
+Build cache-busting from day 1:
+```javascript
+// Dynamic script loading with Date.now() parameters
+// Emergency cache clearing functions in all pages
+function clearAppCache() {
+  if ('caches' in window) {
+    caches.keys().then(names => {
+      names.forEach(name => caches.delete(name));
+    });
+  }
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(registrations => {
+      registrations.forEach(registration => registration.unregister());
+    });
+  }
+  localStorage.clear();
+  sessionStorage.clear();
+  location.reload(true);
+}
+
+// Cache detection patterns:
+if (apiUrl.includes('localhost:5001') && window.location.hostname !== 'localhost') {
+  clearAppCache();
+}
+```
+
+### 7. COMPREHENSIVE CORS SETUP:
+```javascript
+// Backend CORS configuration from day 1:
+const cors = require('cors')({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:8080', 
+    'http://127.0.0.1:3000',
+    'https://foamfighters.co.uk',
+    'https://foamfighters.web.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+});
+
+// Explicit fallback middleware:
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  next();
+});
+```
+
+### 8. Firestore Security Rules (Complete from Start):
+```javascript
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Public read access for website content
+    match /website_content/{document} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+    
+    // Customer inquiries
+    match /inquiries/{document} {
+      allow create: if true; // Allow public form submissions
+      allow read, update, delete: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+    
+    // Protected admin data
+    match /quotes/{document} {
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'manager'];
+    }
+    
+    // User profiles
+    match /users/{userId} {
+      allow read, write: if request.auth != null && 
+        (request.auth.uid == userId || 
+         get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+    
+    // Projects tracking
+    match /projects/{document} {
+      allow read, write: if request.auth != null && 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in ['admin', 'manager', 'technician'];
+    }
+  }
+}
+```
+
+## Firebase Setup & Configuration:
+1. Initialize Firebase project with all services
+2. Set up custom claims for role-based access
+3. Configure domain connection with proper SSL
+4. Environment variables for API keys and sensitive data
+5. Backup and recovery strategy
+6. Consistent port usage:
+   - Frontend: 3000
+   - Backend API: 5000 (not 5001)
+   - Firebase emulator: 9099
+
+## Client-Facing Website Pages:
+Build a professional, modern website with these pages:
+
+1. **Homepage** - Hero section with clear value proposition and strong CTAs
+2. **Why SPF is a Problem** - Embed this video: https://www.youtube.com/watch?v=TOz6pjISrFk
+   Detail structural problems and home selling issues
+3. **SPF Guide** - Open vs Closed cell foam differences and specific problems each causes
+4. **Removal Process** - Detailed process for each type, manage expectations of post-removal appearance, explain how it reverts property to sellable state, mention certification
+5. **Before & After Gallery** - Professional image gallery using stock photos
+6. **Case Studies** - Create 3 detailed fictional case studies from different UK regions
+7. **Mortgage & Insurance Warnings** - Critical information section about lending/insurance issues
+8. **Contact Page** - Include company details from Companies House: https://find-and-update.company-information.service.gov.uk/company/16612986/officers
+   Phone: 0333 577 0132
+9. **Privacy Policy** - GDPR compliant privacy policy
+
+## Website Features:
+- **Testimonials carousel** on every page footer
+- **Call-to-action buttons** for quotes on every page
+- **Chat popup widget** for instant communication
+- **Mobile responsive design** - mobile-first approach
+- **SEO optimized** - Meta tags, structured data, sitemap
+- **Fast loading times** - Image optimization, code splitting
+- **Offline support** - Service worker for basic offline functionality
+- **Analytics** - Google Analytics 4 integration
+
+## Employee Tools (Admin Dashboard):
+Create protected admin area with centralized auth:
+
+1. **Authentication Gateway** - All admin tools check auth before loading
+2. **Spray Foam Evaluation Tool** - Comprehensive assessment forms for property evaluation
+3. **Loft Measurement Tool** - Advanced calculators with material estimates and removal cost calculations
+4. **Customer Inquiry Management** - CRM-style interface for managing quote requests
+5. **Quote Generation System** - Professional PDF generation and automated email integration
+6. **Project Tracking Dashboard** - Status management, scheduling, and progress tracking
+7. **User Management** - Admin can manage employee access and roles
+
+## Backend API Structure:
+Design RESTful Firebase Functions with:
+```javascript
+// Example function structure using Firebase Functions V2:
+const {onRequest} = require("firebase-functions/v2/https");
+const {onCall} = require("firebase-functions/v2/https");
+
+exports.api = onRequest({cors: true}, (req, res) => {
+  cors(req, res, async () => {
+    try {
+      // Centralized auth check
+      const user = await authManager.verifyUser(req);
+      
+      // Route handling
+      switch (req.path) {
+        case '/quotes':
+          return await quoteHandler(req, res, user);
+        case '/inquiries':
+          return await inquiryHandler(req, res, user);
+        case '/projects':
+          return await projectHandler(req, res, user);
+        default:
+          return res.status(404).json({ error: 'Not found' });
+      }
+    } catch (error) {
+      return errorHandler(res, error);
+    }
+  });
+});
+
+// Centralized email system from start:
+exports.sendTemplatedEmailCallable = onCall(async (request) => {
+  // Template-based email system
+  // Environment-based configuration  
+  // Proper error handling
+  // Support for quotes, confirmations, reminders
+});
+```
+
+## Database Schema Design:
+Plan Firestore collections:
+
+
+
+## Advanced Frontend Features:
+- **Cache Management**: Cache-busting for script loading, version parameters
+- **Performance Optimization**: 
+  - Lazy loading for images
+  - Code splitting and minification
+  - Compression
+- **Component Architecture**: Modular, reusable components
+  - /shared/components/Modal.js
+  - /shared/components/Toast.js  
+  - /shared/components/LoadingSpinner.js
+  - /shared/components/ErrorBoundary.js
+- **Service Worker**: Handle Bootstrap/CDN CORS issues
+```javascript
+self.addEventListener('fetch', event => {
+  if (event.request.url.includes('bootstrap') || 
+      event.request.url.includes('cdnjs')) {
+    event.respondWith(
+      fetch(event.request, { mode: 'cors' })
+        .catch(() => fetch(event.request, { mode: 'no-cors' }))
+    );
+  }
+});
+```
+
+## Deployment Strategy:
+```bash
+# Selective deployment from day 1:
+firebase deploy --only functions:api
+firebase deploy --only functions:sendTemplatedEmailCallable  
+firebase deploy --only hosting
+# Don't deploy everything every time
+```
+
+## Step-by-Step Implementation Plan:
+
+### Phase 1: Foundation Setup
+1. **Project Initialization:**
+   - Create project structure
+   - Initialize Firebase project
+   - Set up development environment
+   - Configure all Firebase services
+
+2. **Core Infrastructure:**
+   - Build centralized Firebase config
+   - Implement authentication system
+   - Create URL configuration management
+   - Set up error handling and logging
+   - Implement memory management utilities
+
+### Phase 2: Backend Development
+1. **Firebase Functions Setup:**
+   - Configure CORS properly
+   - Build API routing structure
+   - Implement authentication middleware
+   - Create email system
+   - Set up database security rules
+
+2. **Core APIs:**
+   - Customer inquiry submission
+   - Quote generation system
+   - Project management endpoints
+   - User management functions
+
+### Phase 3: Frontend Development
+1. **Website Structure:**
+   - Build responsive layout
+   - Implement navigation
+   - Create reusable components
+   - Set up caching and performance optimization
+
+2. **Content Pages:**
+   - Homepage with compelling hero section
+   - Educational pages about SPF problems
+   - Process and service pages
+   - Contact and legal pages
+
+3. **Interactive Features:**
+   - Quote request forms
+   - Chat widget integration
+   - Testimonials carousel
+   - Before/after gallery
+
+### Phase 4: Admin Dashboard
+1. **Authentication and Access Control:**
+   - Admin login system
+   - Role-based permissions
+   - Protected routes
+
+2. **Management Tools:**
+   - Spray foam evaluation tool
+   - Loft measurement calculator
+   - Customer inquiry management
+   - Quote generation interface
+   - Project tracking dashboard
+
+### Phase 5: Testing and Deployment
+1. **Quality Assurance:**
+   - Cross-browser testing
+   - Mobile responsiveness
+   - Performance optimization
+   - Security audit
+
+2. **Production Deployment:**
+   - Custom domain configuration
+   - SSL certificate setup
+   - Analytics implementation
+   - Monitoring and alerting
+
+## Key Success Principles:
+1. **Build the infrastructure foundation FIRST** before any features
+2. **Set up all defensive patterns** from day 1
+3. **Use centralized configurations** to avoid scattered hardcoded values
+4. **Implement proper error handling** and fallback mechanisms
+5. **Plan for scalability** from the beginning
+6. **Test thoroughly** across different environments
+7. **Deploy selectively** to avoid unnecessary updates
+
+GOAL: "Build once, scale easily" rather than "Build fast, fix later."
+
+Please start with Phase 1 and walk me through building this complete system with proper architecture from the start, including all the centralized systems, error handling, and security patterns that will prevent common issues like CORS errors, authentication problems, and configuration management headaches.
+
+The end result should be a professional, trustworthy website that instills confidence in potential customers dealing with property damage and mortgage issues, plus a comprehensive admin system for managing the business operations.

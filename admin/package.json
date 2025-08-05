@@ -1,0 +1,35 @@
+{
+  "name": "foam-fighters-admin",
+  "version": "1.0.0",
+  "description": "Foam Fighters Admin Dashboard - Employee Tools",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite --port 3001",
+    "start": "vite preview --port 3001",
+    "build": "vite build --outDir ../frontend/dist/admin",
+    "preview": "vite preview",
+    "serve": "http-server dist -p 3001",
+    "test": "echo \"No tests specified\" && exit 0",
+    "lint": "eslint src --ext .js,.html",
+    "lint:fix": "eslint src --ext .js,.html --fix"
+  },
+  "dependencies": {
+    "firebase": "^10.7.1",
+    "chart.js": "^4.4.0",
+    "date-fns": "^2.30.0"
+  },
+  "devDependencies": {
+    "vite": "^4.5.0",
+    "http-server": "^14.1.1",
+    "eslint": "^8.45.0",
+    "eslint-config-standard": "^17.1.0",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "cssnano": "^6.0.1"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="app-version" content="1.0.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Contact Us - Foam Fighters | Get Your Free Assessment Today</title>
+    <meta name="description" content="Contact Foam Fighters for professional spray foam removal services. Free assessments, emergency callouts, and expert advice across the UK.">
+    <meta name="keywords" content="contact spray foam removal, free assessment, emergency callout, UK">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+
+    <!-- Firebase Configuration -->
+    <script src="/assets/js/firebase-config.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-shield-alt me-2"></i>
+                Foam Fighters
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/why-spf-problem.html">Why SPF is a Problem</a></li>
+                            <li><a class="dropdown-item" href="/spf-guide.html">SPF Guide</a></li>
+                            <li><a class="dropdown-item" href="/removal-process.html">Removal Process</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mortgage-insurance.html">Mortgage & Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/contact.html">Contact</a>
+                    </li>
+                </ul>
+                
+                <div class="navbar-nav">
+                    <a class="nav-link fw-bold text-warning" href="tel:0333577032">
+                        <i class="fas fa-phone me-1"></i>
+                        0333 577 0132
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 text-white fw-bold mb-4">
+                        <i class="fas fa-comments me-3"></i>
+                        Contact Us
+                    </h1>
+                    <p class="lead text-light mb-4">
+                        Get your free assessment today. We're here to help solve your spray foam problems quickly and professionally.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-5">
+        <div class="container">
+            <!-- Contact Options -->
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <div class="row g-4">
+                        <!-- Phone Contact -->
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm border-0 text-center">
+                                <div class="card-body p-4">
+                                    <div class="contact-icon mb-3">
+                                        <i class="fas fa-phone-alt text-primary" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h4 class="text-primary">Call Us Now</h4>
+                                    <p class="text-muted mb-3">Speak directly to our experts for immediate advice and emergency callouts.</p>
+                                    <a href="tel:0333577032" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-phone me-2"></i>
+                                        0333 577 0132
+                                    </a>
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            Mon-Fri: 8:00 AM - 6:00 PM<br>
+                                            <i class="fas fa-clock me-1"></i>
+                                            Sat: 9:00 AM - 4:00 PM
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Email Contact -->
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm border-0 text-center">
+                                <div class="card-body p-4">
+                                    <div class="contact-icon mb-3">
+                                        <i class="fas fa-envelope text-success" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h4 class="text-success">Email Us</h4>
+                                    <p class="text-muted mb-3">Send us details about your property for a detailed written assessment.</p>
+                                    <a href="mailto:info@foamfighters.co.uk" class="btn btn-success btn-lg">
+                                        <i class="fas fa-envelope me-2"></i>
+                                        Email Us
+                                    </a>
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            info@foamfighters.co.uk<br>
+                                            <i class="fas fa-clock me-1"></i>
+                                            Response within 2 hours
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Contact -->
+                        <div class="col-md-4">
+                            <div class="card h-100 shadow-sm border-0 text-center border-warning">
+                                <div class="card-body p-4">
+                                    <div class="contact-icon mb-3">
+                                        <i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+                                    </div>
+                                    <h4 class="text-warning">Emergency Service</h4>
+                                    <p class="text-muted mb-3">Urgent insurance/mortgage deadline? We offer emergency response.</p>
+                                    <a href="tel:0333577032" class="btn btn-warning btn-lg">
+                                        <i class="fas fa-bolt me-2"></i>
+                                        Emergency Call
+                                    </a>
+                                    <div class="mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-clock me-1"></i>
+                                            24/7 emergency response<br>
+                                            <i class="fas fa-clock me-1"></i>
+                                            Same-day assessment available
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form and Map Section -->
+            <div class="row">
+                <!-- Contact Form -->
+                <div class="col-lg-8">
+                    <div class="card shadow-lg border-0">
+                        <div class="card-header bg-primary text-white">
+                            <h3 class="card-title mb-0">
+                                <i class="fas fa-form me-2"></i>
+                                Request Your Free Assessment
+                            </h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="contactForm" class="needs-validation" novalidate>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="firstName" class="form-label">First Name *</label>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                                        <div class="invalid-feedback">
+                                            Please provide your first name.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="lastName" class="form-label">Last Name *</label>
+                                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                                        <div class="invalid-feedback">
+                                            Please provide your last name.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="email" class="form-label">Email Address *</label>
+                                        <input type="email" class="form-control" id="email" name="email" required>
+                                        <div class="invalid-feedback">
+                                            Please provide a valid email address.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="phone" class="form-label">Phone Number *</label>
+                                        <input type="tel" class="form-control" id="phone" name="phone" required>
+                                        <div class="invalid-feedback">
+                                            Please provide your phone number.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="propertyType" class="form-label">Property Type *</label>
+                                        <select class="form-select" id="propertyType" name="propertyType" required>
+                                            <option value="">Select property type...</option>
+                                            <option value="detached">Detached House</option>
+                                            <option value="semi-detached">Semi-Detached House</option>
+                                            <option value="terraced">Terraced House</option>
+                                            <option value="bungalow">Bungalow</option>
+                                            <option value="flat">Flat/Apartment</option>
+                                            <option value="commercial">Commercial Property</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select your property type.
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="urgency" class="form-label">Urgency Level *</label>
+                                        <select class="form-select" id="urgency" name="urgency" required>
+                                            <option value="">How urgent is this?</option>
+                                            <option value="planning">Planning ahead</option>
+                                            <option value="mortgage">Mortgage application pending</option>
+                                            <option value="sale">Property sale agreed</option>
+                                            <option value="insurance">Insurance issue</option>
+                                            <option value="emergency">Emergency (deadline)</option>
+                                        </select>
+                                        <div class="invalid-feedback">
+                                            Please select urgency level.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Property Address *</label>
+                                    <textarea class="form-control" id="address" name="address" rows="2" required placeholder="Full property address including postcode"></textarea>
+                                    <div class="invalid-feedback">
+                                        Please provide the property address.
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="foamLocation" class="form-label">Where is the spray foam located? *</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="roof" name="foamLocation[]" value="roof">
+                                        <label class="form-check-label" for="roof">Roof/Loft space</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="walls" name="foamLocation[]" value="walls">
+                                        <label class="form-check-label" for="walls">Wall cavities</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="floor" name="foamLocation[]" value="floor">
+                                        <label class="form-check-label" for="floor">Floor/underfloor</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="unsure" name="foamLocation[]" value="unsure">
+                                        <label class="form-check-label" for="unsure">Not sure/multiple areas</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="foamAge" class="form-label">When was the foam installed?</label>
+                                    <select class="form-select" id="foamAge" name="foamAge">
+                                        <option value="">Select timeframe...</option>
+                                        <option value="recent">Within last 12 months</option>
+                                        <option value="1-3years">1-3 years ago</option>
+                                        <option value="3-5years">3-5 years ago</option>
+                                        <option value="5-10years">5-10 years ago</option>
+                                        <option value="over10">Over 10 years ago</option>
+                                        <option value="unknown">Unknown/came with property</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="issues" class="form-label">What issues are you experiencing?</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="mortgageRejection" name="issues[]" value="mortgage-rejection">
+                                        <label class="form-check-label" for="mortgageRejection">Mortgage application rejected</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="insuranceIssue" name="issues[]" value="insurance-issue">
+                                        <label class="form-check-label" for="insuranceIssue">Insurance problems</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="saleIssue" name="issues[]" value="sale-issue">
+                                        <label class="form-check-label" for="saleIssue">Property sale falling through</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="valuationIssue" name="issues[]" value="valuation-issue">
+                                        <label class="form-check-label" for="valuationIssue">Valuation issues</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="surveyIssue" name="issues[]" value="survey-issue">
+                                        <label class="form-check-label" for="surveyIssue">Survey flagged concerns</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="planning" name="issues[]" value="planning">
+                                        <label class="form-check-label" for="planning">Planning to sell/remortgage</label>
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="message" class="form-label">Additional Details</label>
+                                    <textarea class="form-control" id="message" name="message" rows="4" placeholder="Please provide any additional information about your situation, deadlines, or specific concerns..."></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="consent" name="consent" required>
+                                        <label class="form-check-label" for="consent">
+                                            I consent to Foam Fighters contacting me about my enquiry and understand that my data will be processed in accordance with their privacy policy. *
+                                        </label>
+                                        <div class="invalid-feedback">
+                                            You must agree to our privacy policy to proceed.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <span class="submit-text">
+                                            <i class="fas fa-paper-plane me-2"></i>
+                                            Request Free Assessment
+                                        </span>
+                                        <span class="loading-text d-none">
+                                            <i class="fas fa-spinner fa-spin me-2"></i>
+                                            Submitting...
+                                        </span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Information Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Business Hours -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-clock me-2"></i>
+                                Business Hours
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="hours-list">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Monday - Friday:</span>
+                                    <strong>8:00 AM - 6:00 PM</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Saturday:</span>
+                                    <strong>9:00 AM - 4:00 PM</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span>Sunday:</span>
+                                    <strong>Emergency only</strong>
+                                </div>
+                                <hr>
+                                <div class="text-center">
+                                    <small class="text-muted">
+                                        <i class="fas fa-bolt text-warning me-1"></i>
+                                        Emergency callouts available 24/7
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Areas -->
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-map-marker-alt me-2"></i>
+                                Service Areas
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-3">We provide spray foam removal services across England and Wales:</p>
+                            <ul class="list-unstyled">
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>Greater Manchester</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>West Midlands</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>West Yorkshire</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>Greater London</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>Merseyside</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>South Wales</li>
+                                <li class="mb-1"><i class="fas fa-check text-success me-2"></i>And more...</li>
+                            </ul>
+                            <small class="text-muted">
+                                Don't see your area? Contact us - we cover most of England and Wales.
+                            </small>
+                        </div>
+                    </div>
+
+                    <!-- Response Times -->
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-warning text-dark">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-tachometer-alt me-2"></i>
+                                Response Times
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="response-times">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <strong>Phone Calls</strong>
+                                        <div class="small text-muted">Direct expert advice</div>
+                                    </div>
+                                    <span class="badge bg-success rounded-pill">Immediate</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <strong>Email Enquiries</strong>
+                                        <div class="small text-muted">Detailed responses</div>
+                                    </div>
+                                    <span class="badge bg-primary rounded-pill">&lt; 2 hours</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div>
+                                        <strong>Site Assessments</strong>
+                                        <div class="small text-muted">Free property visits</div>
+                                    </div>
+                                    <span class="badge bg-info rounded-pill">1-3 days</span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>Emergency Response</strong>
+                                        <div class="small text-muted">Urgent situations</div>
+                                    </div>
+                                    <span class="badge bg-warning rounded-pill">Same day</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-shield-alt me-2"></i>
+                        Foam Fighters
+                    </h5>
+                    <p class="text-light">
+                        Professional spray foam removal specialists across the UK. 
+                        Restoring property value and ensuring mortgage approval.
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h6 class="fw-bold mb-3">Contact</h6>
+                    <p class="mb-1">
+                        <i class="fas fa-phone me-2"></i>
+                        <a href="tel:0333577032" class="text-light text-decoration-none">0333 577 0132</a>
+                    </p>
+                    <p class="mb-1">
+                        <i class="fas fa-envelope me-2"></i>
+                        <a href="mailto:info@foamfighters.co.uk" class="text-light text-decoration-none">info@foamfighters.co.uk</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="/assets/js/main.js"></script>
+    
+    <!-- Contact Form Script -->
+    <script>
+        // Contact form validation and submission
+        (function() {
+            'use strict';
+            
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation');
+            
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(function(form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    
+                    if (form.checkValidity()) {
+                        // Form is valid, simulate submission
+                        const submitBtn = form.querySelector('button[type="submit"]');
+                        const originalText = submitBtn.innerHTML;
+                        
+                        // Show loading state
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Sending...';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate form submission (replace with actual submission logic)
+                        setTimeout(() => {
+                            showSuccess('Thank you! Your assessment request has been received. We\'ll contact you within 2 hours.');
+                            form.reset();
+                            form.classList.remove('was-validated');
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                        }, 2000);
+                    }
+                    
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+</body>
+</html>
