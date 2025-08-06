@@ -64,7 +64,7 @@ exports.api = onRequest({
 }, async (req, res) => {
   try {
     // Apply CORS and handle request
-    cors(req, res, () => {
+    cors(req, res, async () => {
       // Health check
       if (req.method === 'GET' && req.path === '/health') {
         res.json({ status: 'ok', timestamp: new Date().toISOString() });
