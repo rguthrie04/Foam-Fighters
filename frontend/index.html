@@ -31,19 +31,26 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Foam Fighters Ltd",
-        "description": "Professional spray foam removal services",
-        "url": "https://foamfighters.co.uk",
+        "alternateName": "Foam Fighters UK",
+        "description": "Professional spray foam removal services across the UK. Expert removal of problematic spray foam insulation for mortgage and property sale issues.",
+        "url": "https://foamfighters.uk",
         "telephone": "0333 577 0132",
         "email": "info@foamfighters.co.uk",
+        "priceRange": "£2500-£8000",
+        "foundingDate": "2023",
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "GB"
+            "addressCountry": "GB",
+            "addressRegion": "England"
         },
-        "openingHours": "Mo-Fr 08:00-18:00",
+        "openingHours": ["Mo-Fr 08:00-18:00", "Sa 09:00-17:00"],
         "serviceArea": {
             "@type": "Country",
             "name": "United Kingdom"
         },
+        "areaServed": [
+            "England", "Scotland", "Wales", "Northern Ireland"
+        ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Spray Foam Removal Services",
@@ -52,19 +59,48 @@
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Open Cell Foam Removal",
-                        "description": "Professional removal of open cell spray foam insulation"
+                        "name": "Spray Foam Removal UK",
+                        "description": "Professional removal of spray foam insulation to fix mortgage refusals and property sale issues",
+                        "provider": {
+                            "@type": "LocalBusiness",
+                            "name": "Foam Fighters Ltd"
+                        }
+                    },
+                    "priceRange": "£2500-£8000"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service", 
+                        "name": "Emergency Spray Foam Removal",
+                        "description": "Urgent spray foam removal for failed mortgage surveys and blocked property sales"
                     }
                 },
                 {
-                    "@type": "Offer", 
+                    "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Closed Cell Foam Removal",
-                        "description": "Expert removal of closed cell spray foam insulation"
+                        "name": "Spray Foam Removal Certificate",
+                        "description": "Official certification for lenders and surveyors after professional foam removal"
                     }
                 }
             ]
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "127"
+        },
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://foamfighters.uk/contact.html"
+            },
+            "result": {
+                "@type": "ReservationPackage",
+                "name": "Free Spray Foam Assessment"
+            }
         }
     }
     </script>
@@ -85,7 +121,7 @@
     <link href="/assets/css/main.css" rel="stylesheet">
 
     <!-- Firebase Configuration -->
-    <script src="/assets/js/firebase-config.js"></script>
+    <script src="/assets/js/firebase-config.js" type="module"></script>
 </head>
 <body>
     <!-- Skip to main content for accessibility -->
@@ -149,11 +185,10 @@
                 <div class="row align-items-center min-vh-100 py-5">
                     <div class="col-lg-6">
                         <h1 class="display-4 fw-bold mb-4">
-                            Professional Spray Foam Removal Specialists
+                            Spray Foam Removal UK - Fix Mortgage Refusals
                         </h1>
                         <p class="lead mb-4">
-                            Get your property back to sellable condition with our expert spray foam removal services. 
-                            We handle problematic SPF that's affecting your mortgage and insurance.
+                            Can't sell your house due to spray foam? Mortgage refused? Our expert spray foam removal service UK fixes property sale problems from £2,500. Professional certified removal with documentation for lenders.
                         </p>
                         <div class="hero-benefits mb-4">
                             <div class="d-flex align-items-center mb-2">

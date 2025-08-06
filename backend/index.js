@@ -56,9 +56,14 @@ function cors(req, res, next) {
   next();
 }
 
-// Ultra-minimal API function
+// Ultra-minimal API function with explicit CORS and public access
 exports.api = onRequest({
-  cors: true,
+  cors: {
+    origin: true, // Allow all origins for now
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    credentials: false
+  },
+  invoker: 'public', // Allow unauthenticated access
   timeoutSeconds: 30,
   memory: '256MiB'
 }, async (req, res) => {

@@ -106,6 +106,9 @@ class FoamFightersApp {
         try {
             safeDebugLog('Initializing Foam Fighters website');
 
+            // Initialize performance optimizations first
+            await this.initializeLazyLoading();
+
             // Initialize core components
             await this.initializeNavigation();
             await this.initializeQuoteForm();
@@ -162,8 +165,8 @@ class FoamFightersApp {
                 if (clickId) this.listenerIds.push(clickId);
             });
 
-            // Mobile menu close on link click
-            const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+            // Mobile menu close on non-dropdown link click
+            const navLinks = document.querySelectorAll('.navbar-nav .nav-link:not(.dropdown-toggle)');
             navLinks.forEach(link => {
                 const clickId = safeAddEventListener(link, 'click', () => {
                     const navbarCollapse = document.getElementById('navbarNav');
@@ -175,6 +178,26 @@ class FoamFightersApp {
 
                 if (clickId) this.listenerIds.push(clickId);
             });
+
+            // Handle dropdown item clicks to close mobile menu
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            dropdownItems.forEach(item => {
+                const clickId = safeAddEventListener(item, 'click', () => {
+                    const navbarCollapse = document.getElementById('navbarNav');
+                    if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+                        const bsCollapse = new bootstrap.Collapse(navbarCollapse);
+                        bsCollapse.hide();
+                    }
+                }, false, 'dropdown-item-close');
+
+                if (clickId) this.listenerIds.push(clickId);
+            });
+
+            // Enhanced mobile dropdown behavior
+            this.setupMobileDropdowns();
+            
+            // Add simple fallback for immediate mobile dropdown functionality
+            this.addSimpleMobileDropdownFallback();
 
             safeDebugLog('Navigation initialized');
 
@@ -318,7 +341,7 @@ class FoamFightersApp {
                 });
             } else {
                 // Fallback direct API call
-                const apiUrl = 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net/api/inquiries';
+                const apiUrl = 'https://api-6swwnulcrq-nw.a.run.app/inquiries';
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -424,7 +447,7 @@ class FoamFightersApp {
                 });
             } else {
                 // Fallback direct API call
-                const apiUrl = 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net/api/inquiries';
+                const apiUrl = 'https://api-6swwnulcrq-nw.a.run.app/inquiries';
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -741,10 +764,21 @@ class FoamFightersApp {
             const skipLinks = document.querySelectorAll('[href^="#"]');
             skipLinks.forEach(link => {
                 const clickId = safeAddEventListener(link, 'click', (e) => {
-                    const target = document.querySelector(link.getAttribute('href'));
-                    if (target) {
-                        target.focus();
-                        target.scrollIntoView();
+                    const href = link.getAttribute('href');
+                    // Skip empty hashes or dropdown toggles
+                    if (href === '#' || link.getAttribute('data-bs-toggle')) {
+                        return;
+                    }
+                    
+                    try {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            target.focus();
+                            target.scrollIntoView();
+                        }
+                    } catch (error) {
+                        // Invalid selector, skip
+                        safeDebugWarn('Invalid href selector:', href);
                     }
                 }, false, 'skip-link');
 
@@ -869,6 +903,171 @@ class FoamFightersApp {
     /**
      * Cleanup when page unloads
      */
+    /**
+     * Initialize lazy loading for performance
+     */
+    async initializeLazyLoading() {
+        try {
+            // Import and initialize lazy loading
+            const { default: LazyLoader } = await import('./lazy-loading.js');
+            this.lazyLoader = new LazyLoader();
+            
+            safeDebugLog('Lazy loading initialized');
+        } catch (error) {
+            safeDebugError('Lazy loading initialization failed', error);
+            // Fallback: load all images immediately
+            this.fallbackImageLoading();
+        }
+    }
+
+    /**
+     * Fallback image loading for when lazy loading fails
+     */
+    fallbackImageLoading() {
+        const lazyImages = document.querySelectorAll('img[data-src]');
+        lazyImages.forEach(img => {
+            img.src = img.dataset.src;
+            img.removeAttribute('data-src');
+        });
+    }
+
+    /**
+     * Setup mobile-specific dropdown behavior
+     */
+    setupMobileDropdowns() {
+        try {
+            // Wait for Bootstrap to be available
+            const initializeDropdowns = () => {
+                const dropdownElements = document.querySelectorAll('.nav-item.dropdown');
+                
+                dropdownElements.forEach(dropdownElement => {
+                    const toggle = dropdownElement.querySelector('.dropdown-toggle');
+                    const menu = dropdownElement.querySelector('.dropdown-menu');
+                    
+                    if (!toggle || !menu) return;
+
+                    // Remove Bootstrap data attributes on mobile to prevent conflicts
+                    if (window.innerWidth <= 991) {
+                        toggle.removeAttribute('data-bs-toggle');
+                    }
+
+                    // Mobile-specific click handler
+                    const clickId = safeAddEventListener(toggle, 'click', (e) => {
+                        if (window.innerWidth <= 991) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            
+                            const isCurrentlyOpen = dropdownElement.classList.contains('show');
+                            
+                            // Close all dropdowns first
+                            document.querySelectorAll('.nav-item.dropdown').forEach(dropdown => {
+                                dropdown.classList.remove('show');
+                                const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+                                if (dropdownMenu) {
+                                    dropdownMenu.classList.remove('show');
+                                }
+                            });
+                            
+                            // Toggle current dropdown
+                            if (!isCurrentlyOpen) {
+                                dropdownElement.classList.add('show');
+                                menu.classList.add('show');
+                                safeDebugLog('Mobile dropdown opened');
+                            }
+                        }
+                    }, false, 'mobile-dropdown-click');
+
+                    // Enhanced touch handling for iOS
+                    const touchStartId = safeAddEventListener(toggle, 'touchstart', (e) => {
+                        if (window.innerWidth <= 991) {
+                            // Ensure the element is ready for touch
+                            toggle.style.webkitTouchCallout = 'none';
+                            toggle.style.webkitUserSelect = 'none';
+                        }
+                    }, {passive: true}, 'mobile-dropdown-touchstart');
+
+                    if (clickId) this.listenerIds.push(clickId);
+                    if (touchStartId) this.listenerIds.push(touchStartId);
+                });
+
+                // Close dropdowns when clicking outside
+                const bodyClickId = safeAddEventListener(document.body, 'click', (e) => {
+                    if (window.innerWidth <= 991) {
+                        const clickedDropdown = e.target.closest('.nav-item.dropdown');
+                        if (!clickedDropdown) {
+                            document.querySelectorAll('.nav-item.dropdown.show').forEach(dropdown => {
+                                dropdown.classList.remove('show');
+                                const menu = dropdown.querySelector('.dropdown-menu');
+                                if (menu) menu.classList.remove('show');
+                            });
+                        }
+                    }
+                }, false, 'mobile-dropdown-outside-click');
+
+                if (bodyClickId) this.listenerIds.push(bodyClickId);
+            };
+
+            // Initialize immediately or wait for Bootstrap
+            if (typeof bootstrap !== 'undefined') {
+                initializeDropdowns();
+            } else {
+                // Wait for Bootstrap to load
+                const checkBootstrap = setInterval(() => {
+                    if (typeof bootstrap !== 'undefined') {
+                        clearInterval(checkBootstrap);
+                        initializeDropdowns();
+                    }
+                }, 100);
+                
+                // Fallback: initialize after 2 seconds anyway
+                setTimeout(initializeDropdowns, 2000);
+            }
+
+            safeDebugLog('Mobile dropdowns setup initiated');
+        } catch (error) {
+            safeDebugError('Error setting up mobile dropdowns', error);
+        }
+    }
+
+    /**
+     * Simple fallback mobile dropdown functionality
+     */
+    addSimpleMobileDropdownFallback() {
+        try {
+            // Add immediate click handler for Services link
+            const servicesLink = document.querySelector('.nav-link.dropdown-toggle');
+            if (servicesLink) {
+                const fallbackClickId = safeAddEventListener(servicesLink, 'touchend', (e) => {
+                    if (window.innerWidth <= 991) {
+                        e.preventDefault();
+                        
+                        const dropdownParent = servicesLink.closest('.nav-item.dropdown');
+                        const dropdownMenu = dropdownParent.querySelector('.dropdown-menu');
+                        
+                        if (dropdownMenu) {
+                            const isVisible = dropdownMenu.style.display === 'block' || dropdownMenu.classList.contains('show');
+                            
+                            if (isVisible) {
+                                dropdownMenu.style.display = 'none';
+                                dropdownMenu.classList.remove('show');
+                                dropdownParent.classList.remove('show');
+                            } else {
+                                dropdownMenu.style.display = 'block';
+                                dropdownMenu.classList.add('show');
+                                dropdownParent.classList.add('show');
+                            }
+                        }
+                    }
+                }, {passive: false}, 'mobile-dropdown-fallback');
+
+                if (fallbackClickId) this.listenerIds.push(fallbackClickId);
+                safeDebugLog('Mobile dropdown fallback added');
+            }
+        } catch (error) {
+            safeDebugError('Error setting up mobile dropdown fallback', error);
+        }
+    }
+
     cleanup() {
         try {
             // Remove all event listeners

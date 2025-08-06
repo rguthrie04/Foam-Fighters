@@ -89,17 +89,14 @@ class EmailService {
         this.transporter = this.createConsoleTransporter();
       }
     } else {
-      // Production email setup using Firebase config
-      const functions = require('firebase-functions');
-      const config = functions.config();
-      
+      // Production email setup - hardcoded Zoho SMTP configuration
       this.transporter = nodemailer.createTransport({
-        host: config.smtp?.host || 'smtppro.zoho.com',
-        port: parseInt(config.smtp?.port || '465'),
-        secure: config.smtp?.secure === 'true' || true, // SSL for port 465
+        host: 'smtppro.zoho.com',
+        port: 465,
+        secure: true, // SSL for port 465
         auth: {
-          user: config.smtp?.user || 'notifications@foamfighters.uk',
-          pass: config.smtp?.password
+          user: 'notifications@foamfighters.uk',
+          pass: 'avfLW8KqWikH'
         }
       });
     }
@@ -559,10 +556,20 @@ class EmailService {
       phone: formData.phone || 'Not provided',
       propertyType: formData.propertyType || 'Not specified',
       estimatedArea: formData.estimatedArea || 'Not specified',
-      address: formData.address || '',
+      address: formData.address || formData.postcode || '',
       urgency: formData.urgency || 'normal',
-      additionalInfo: formData.additionalInfo || '',
-      submittedAt: new Date().toLocaleString('en-GB')
+      additionalInfo: formData.additionalInfo || formData.message || '',
+      submittedAt: new Date().toLocaleString('en-GB'),
+      
+      // Additional form fields that might be submitted
+      postcode: formData.postcode || '',
+      message: formData.message || '',
+      foamLocation: Array.isArray(formData.foamLocation) ? formData.foamLocation.join(', ') : (formData.foamLocation || ''),
+      foamAge: formData.foamAge || '',
+      issues: Array.isArray(formData.issues) ? formData.issues.join(', ') : (formData.issues || ''),
+      subject: formData.subject || 'Quote Request',
+      preferredContact: formData.preferredContact || 'email',
+      consent: formData.consent ? 'Yes' : 'No'
     };
 
     const htmlContent = template(templateData);

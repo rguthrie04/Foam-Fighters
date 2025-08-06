@@ -23,8 +23,8 @@ const API_CONFIG = {
     },
     // Production URL (Firebase Functions v2 - Cloud Run)
     production: {
-        baseUrl: 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net/api',
-        functions: 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net'
+        baseUrl: 'https://api-6swwnulcrq-nw.a.run.app',
+        functions: 'https://api-6swwnulcrq-nw.a.run.app'
     }
 };
 

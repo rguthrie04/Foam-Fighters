@@ -1,0 +1,29 @@
+User-agent: *
+Allow: /
+
+# Allow all crawlers
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://foamfighters.uk/sitemap.xml
+
+# Block access to admin areas
+Disallow: /admin/
+Disallow: /backend/
+Disallow: /.firebase/
+Disallow: /node_modules/
+
+# Allow important pages
+Allow: /index.html
+Allow: /why-spf-problem.html
+Allow: /removal-process.html
+Allow: /spf-guide.html
+Allow: /mortgage-insurance.html
+Allow: /gallery.html
+Allow: /case-studies.html
+Allow: /contact.html
+
+# Priority pages for spray foam removal
+Allow: /spray-foam-removal/
+Allow: /spray-foam-problems/
+Allow: /mortgage-help/

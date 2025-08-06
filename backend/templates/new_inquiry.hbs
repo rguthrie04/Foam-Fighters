@@ -46,6 +46,26 @@
                 <strong>Address:</strong> {{address}}
             </div>
             {{/if}}
+            {{#if postcode}}
+            <div class="field">
+                <strong>Postcode:</strong> {{postcode}}
+            </div>
+            {{/if}}
+            {{#if foamLocation}}
+            <div class="field">
+                <strong>Foam Location:</strong> {{foamLocation}}
+            </div>
+            {{/if}}
+            {{#if foamAge}}
+            <div class="field">
+                <strong>Foam Age:</strong> {{foamAge}}
+            </div>
+            {{/if}}
+            {{#if issues}}
+            <div class="field">
+                <strong>Issues/Problems:</strong> {{issues}}
+            </div>
+            {{/if}}
             
             <h2>Request Details</h2>
             <div class="field">
@@ -58,6 +78,24 @@
                     {{urgency}}
                 {{/if}}
             </div>
+            {{#if subject}}
+            <div class="field">
+                <strong>Subject:</strong> {{subject}}
+            </div>
+            {{/if}}
+            {{#if preferredContact}}
+            <div class="field">
+                <strong>Preferred Contact:</strong> {{preferredContact}}
+            </div>
+            {{/if}}
+            {{#if message}}
+            <div class="field">
+                <strong>Message:</strong><br>
+                <div style="background: white; padding: 10px; border-left: 3px solid #2c5530; margin-top: 5px;">
+                    {{message}}
+                </div>
+            </div>
+            {{/if}}
             {{#if additionalInfo}}
             <div class="field">
                 <strong>Additional Info:</strong><br>
@@ -66,7 +104,9 @@
                 </div>
             </div>
             {{/if}}
-            
+            <div class="field">
+                <strong>Consent Given:</strong> {{consent}}
+            </div>
             <div class="field">
                 <strong>Submitted:</strong> {{submittedAt}}
             </div>

@@ -23,8 +23,8 @@ const config = {
   production: {
     api: 'https://foam-fighters-2700b.web.app',
     frontend: 'https://foam-fighters-2700b.web.app',
-    firebase: 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net',
-    functions: 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net',
+            firebase: 'https://api-6swwnulcrq-nw.a.run.app',
+        functions: 'https://api-6swwnulcrq-nw.a.run.app',
     emulator: null // No emulators in production
   }
 };

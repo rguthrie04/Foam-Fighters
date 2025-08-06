@@ -6,6 +6,13 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: true,
+    // Performance optimizations
+    target: 'es2018',
+    minify: 'esbuild', // Use esbuild for faster builds
+    // Remove console.logs in production via esbuild
+    esbuild: {
+      drop: ['console', 'debugger']
+    },
     rollupOptions: {
       input: {
         main: './index.html',
@@ -16,8 +23,26 @@ export default defineConfig({
         'removal-process': './removal-process.html',
         'spf-guide': './spf-guide.html',
         'why-spf-problem': './why-spf-problem.html'
+      },
+      output: {
+        // Code splitting and chunk optimization
+        manualChunks: {
+          // Firebase will be bundled automatically
+          // vendor: ['firebase'], // Commented out due to Firebase v10+ module issues
+          // bootstrap: [], // Will be loaded from CDN
+        },
+        // File naming with hash for automatic cache busting
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js',
+        assetFileNames: 'assets/[ext]/[name]-[hash].[ext]'
       }
-    }
+    },
+    // Enable gzip compression
+    reportCompressedSize: true,
+    // Optimize CSS
+    cssCodeSplit: true,
+    // Preload optimization
+    assetsInlineLimit: 4096 // Inline small assets as base64
   },
   server: {
     port: 3001,
