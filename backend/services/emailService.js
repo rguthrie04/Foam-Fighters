@@ -13,8 +13,18 @@ handlebars.registerHelper('eq', function (a, b) {
     return a === b;
 });
 
-// Import utilities
-const { safeDebugLog, safeDebugError, safeDebugWarn } = require('../../shared/utils/errorHandler');
+// Import utilities - simplified for Firebase Functions
+function safeDebugLog(message, data = {}) {
+  console.log(`[DEBUG] ${message}`, data);
+}
+
+function safeDebugError(message, error = {}) {
+  console.error(`[ERROR] ${message}`, error);
+}
+
+function safeDebugWarn(message, data = {}) {
+  console.warn(`[WARN] ${message}`, data);
+}
 
 class EmailService {
   constructor() {
@@ -84,9 +94,9 @@ class EmailService {
       const config = functions.config();
       
       this.transporter = nodemailer.createTransport({
-        host: config.smtp?.host || 'smtp.zoho.com',
-        port: parseInt(config.smtp?.port || '587'),
-        secure: config.smtp?.secure === 'true',
+        host: config.smtp?.host || 'smtppro.zoho.com',
+        port: parseInt(config.smtp?.port || '465'),
+        secure: config.smtp?.secure === 'true' || true, // SSL for port 465
         auth: {
           user: config.smtp?.user || 'notifications@foamfighters.uk',
           pass: config.smtp?.password
@@ -427,30 +437,12 @@ class EmailService {
    */
   async sendTemplatedEmail(templateType, to, templateData, priority = 'normal') {
     try {
-      // TEMPORARY: Skip email sending for testing - just log to console
-      safeDebugLog('Email would be sent', {
-        templateType,
-        to,
-        templateData,
-        priority
-      });
-      
-      return { 
-        success: true, 
-        messageId: 'test-' + Date.now(),
-        message: 'Email logging enabled - no actual email sent'
-      };
-
-      /* DISABLED FOR TESTING
-      if (!this.initialized) {
-        await this.initializeService();
-      }
+      await this.ensureInitialized();
 
       const template = this.templates.get(templateType);
       if (!template) {
         throw new Error(`Template not found: ${templateType}`);
       }
-      */
 
       // Prepare email data
       const emailData = {
@@ -539,6 +531,62 @@ class EmailService {
       urgency: inquiryData.urgency,
       responseTime
     });
+  }
+
+  /**
+   * Send new inquiry notification to business email
+   */
+  async sendNewInquiryNotification(formData, referenceId) {
+    // Send notification to business owners
+    const recipients = ['cheryl.dawnsmith36@gmail.com', 'ryanguthrie@zoho.com'];
+    
+    // Load the new_inquiry template
+    const templatePath = path.join(__dirname, '../templates/new_inquiry.hbs');
+    let template;
+    
+    try {
+      const templateContent = await fs.readFile(templatePath, 'utf8');
+      template = handlebars.compile(templateContent);
+    } catch (error) {
+      safeDebugError('Failed to load new_inquiry template', error);
+      throw new Error('Email template not found');
+    }
+
+    const templateData = {
+      reference: referenceId,
+      customerName: `${formData.firstName || ''} ${formData.lastName || ''}`.trim() || 'Not provided',
+      email: formData.email || 'Not provided',
+      phone: formData.phone || 'Not provided',
+      propertyType: formData.propertyType || 'Not specified',
+      estimatedArea: formData.estimatedArea || 'Not specified',
+      address: formData.address || '',
+      urgency: formData.urgency || 'normal',
+      additionalInfo: formData.additionalInfo || '',
+      submittedAt: new Date().toLocaleString('en-GB')
+    };
+
+    const htmlContent = template(templateData);
+    
+    const mailOptions = {
+      from: {
+        name: 'Foam Fighters Website',
+        address: 'notifications@foamfighters.uk'
+      },
+      to: recipients,
+      subject: `🏠 New Quote Request - ${referenceId}`,
+      html: htmlContent
+    };
+
+    await this.ensureInitialized();
+    const result = await this.transporter.sendMail(mailOptions);
+    
+    safeDebugLog('New inquiry notification sent', {
+      reference: referenceId,
+      recipients: recipients.length,
+      messageId: result.messageId
+    });
+
+    return result;
   }
 
   /**

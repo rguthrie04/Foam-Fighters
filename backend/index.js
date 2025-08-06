@@ -4,7 +4,7 @@
 
 const { onRequest } = require("firebase-functions/v2/https");
 const { setGlobalOptions } = require("firebase-functions/v2");
-// const emailService = require('./services/emailService'); // Temporarily disabled
+const emailService = require('./services/emailService');
 
 // Utility functions
 function safeDebugLog(message, data = {}) {
@@ -78,15 +78,14 @@ exports.api = onRequest({
         const referenceId = 'FF-' + Date.now();
         const formData = req.body;
         
-        // TODO: Re-enable email notifications once CORS is working
-        console.log('Form data to be emailed:', {
-          reference: referenceId,
-          customerName: `${formData.firstName || ''} ${formData.lastName || ''}`.trim(),
-          email: formData.email,
-          phone: formData.phone,
-          propertyType: formData.propertyType,
-          urgency: formData.urgency
-        });
+        // Send email notification
+        try {
+          await emailService.sendNewInquiryNotification(formData, referenceId);
+          safeDebugLog('Email notification sent successfully', { reference: referenceId });
+        } catch (emailError) {
+          safeDebugError('Failed to send email notification', emailError);
+          // Don't fail the form submission if email fails
+        }
         
         // Return success response
         res.json({
