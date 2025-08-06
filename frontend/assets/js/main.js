@@ -318,7 +318,7 @@ class FoamFightersApp {
                 });
             } else {
                 // Fallback direct API call
-                const apiUrl = 'https://api-6swwnulcrq-nw.a.run.app/inquiries';
+                const apiUrl = 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net/api/inquiries';
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -424,7 +424,7 @@ class FoamFightersApp {
                 });
             } else {
                 // Fallback direct API call
-                const apiUrl = 'https://api-6swwnulcrq-nw.a.run.app/inquiries';
+                const apiUrl = 'https://europe-west2-foam-fighters-2700b.cloudfunctions.net/api/inquiries';
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
