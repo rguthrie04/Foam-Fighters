@@ -31,19 +31,26 @@
         "@context": "https://schema.org",
         "@type": "LocalBusiness",
         "name": "Foam Fighters Ltd",
-        "description": "Professional spray foam removal services",
-        "url": "https://foamfighters.co.uk",
+        "alternateName": "Foam Fighters UK",
+        "description": "Professional spray foam removal services across the UK. Expert removal of problematic spray foam insulation for mortgage and property sale issues.",
+        "url": "https://foamfighters.uk",
         "telephone": "0333 577 0132",
         "email": "info@foamfighters.co.uk",
+        "priceRange": "£2500-£8000",
+        "foundingDate": "2023",
         "address": {
             "@type": "PostalAddress",
-            "addressCountry": "GB"
+            "addressCountry": "GB",
+            "addressRegion": "England"
         },
-        "openingHours": "Mo-Fr 08:00-18:00",
+        "openingHours": ["Mo-Fr 08:00-18:00", "Sa 09:00-17:00"],
         "serviceArea": {
             "@type": "Country",
             "name": "United Kingdom"
         },
+        "areaServed": [
+            "England", "Scotland", "Wales", "Northern Ireland"
+        ],
         "hasOfferCatalog": {
             "@type": "OfferCatalog",
             "name": "Spray Foam Removal Services",
@@ -52,20 +59,99 @@
                     "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Open Cell Foam Removal",
-                        "description": "Professional removal of open cell spray foam insulation"
+                        "name": "Spray Foam Removal UK",
+                        "description": "Professional removal of spray foam insulation to fix mortgage refusals and property sale issues",
+                        "provider": {
+                            "@type": "LocalBusiness",
+                            "name": "Foam Fighters Ltd"
+                        }
+                    },
+                    "priceRange": "£2500-£8000"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": {
+                        "@type": "Service", 
+                        "name": "Emergency Spray Foam Removal",
+                        "description": "Urgent spray foam removal for failed mortgage surveys and blocked property sales"
                     }
                 },
                 {
-                    "@type": "Offer", 
+                    "@type": "Offer",
                     "itemOffered": {
                         "@type": "Service",
-                        "name": "Closed Cell Foam Removal",
-                        "description": "Expert removal of closed cell spray foam insulation"
+                        "name": "Spray Foam Removal Certificate",
+                        "description": "Official certification for lenders and surveyors after professional foam removal"
                     }
                 }
             ]
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "reviewCount": "127"
+        },
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://foamfighters.uk/contact.html"
+            },
+            "result": {
+                "@type": "ReservationPackage",
+                "name": "Free Spray Foam Assessment"
+            }
         }
+    }
+    </script>
+
+    <!-- FAQ Schema Markup for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does spray foam removal cost UK?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Spray foam removal costs in the UK typically range from £2,500 to £8,000 depending on the size of the property, type of foam (open or closed cell), and complexity of removal. Foam Fighters provides transparent pricing with no hidden costs."
+          }
+        },
+        {
+          "@type": "Question", 
+          "name": "Why do mortgages get refused because of spray foam?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Lenders refuse mortgages on properties with spray foam because it prevents proper roof inspection, can trap moisture causing structural damage, and creates ventilation issues. Many UK lenders now have policies against lending on spray foam properties."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I sell my house with spray foam insulation?",
+          "acceptedAnswer": {
+            "@type": "Answer", 
+            "text": "Selling a house with spray foam insulation is increasingly difficult in the UK. Many buyers can't get mortgages, surveys flag it as a problem, and it can reduce property value. Professional removal is often the only solution."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is spray foam removal worth it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, spray foam removal is often essential to sell your property or remortgage. While costs range £2,500-£8,000, it restores full property value and eliminates mortgage barriers. Most homeowners recover costs through successful sales."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does spray foam removal take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Professional spray foam removal typically takes 2-5 days depending on property size and foam type. Closed cell foam takes longer to remove than open cell. We provide realistic timelines during your free assessment."
+          }
+        }
+      ]
     }
     </script>
 
@@ -87,7 +173,7 @@
     <!-- Firebase Configuration -->
     
   <script type="module" crossorigin src="/assets/js/main-742bdb96.js"></script>
-  <script type="module" crossorigin src="/assets/js/firebase-config-af1c35cb.js"></script>
+  <script type="module" crossorigin src="/assets/js/firebase-config-0f00a4f7.js"></script>
   <link rel="stylesheet" href="/assets/css/main-20c348d6.css">
 </head>
 <body>
@@ -152,11 +238,10 @@
                 <div class="row align-items-center min-vh-100 py-5">
                     <div class="col-lg-6">
                         <h1 class="display-4 fw-bold mb-4">
-                            Professional Spray Foam Removal Specialists
+                            Spray Foam Removal UK - Fix Mortgage Refusals
                         </h1>
                         <p class="lead mb-4">
-                            Get your property back to sellable condition with our expert spray foam removal services. 
-                            We handle problematic SPF that's affecting your mortgage and insurance.
+                            Can't sell your house due to spray foam? Mortgage refused? Our expert spray foam removal service UK fixes property sale problems from £2,500. Professional certified removal with documentation for lenders.
                         </p>
                         <div class="hero-benefits mb-4">
                             <div class="d-flex align-items-center mb-2">
