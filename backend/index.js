@@ -4,7 +4,7 @@
 
 const { onRequest } = require("firebase-functions/v2/https");
 const { setGlobalOptions } = require("firebase-functions/v2");
-const emailService = require('./services/emailService');
+// const emailService = require('./services/emailService'); // Temporarily disabled
 
 // Utility functions
 function safeDebugLog(message, data = {}) {
@@ -40,11 +40,11 @@ function cors(req, res, next) {
   const origin = req.get('Origin');
   safeDebugLog('CORS Check', { origin, allowedOrigins, userAgent: req.get('User-Agent') });
   
-  // Always set CORS headers
-  res.set('Access-Control-Allow-Origin', origin || '*');
+  // Always set CORS headers - be more permissive
+  res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
-  res.set('Access-Control-Allow-Credentials', 'true');
+  res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With, Accept');
+  res.set('Access-Control-Allow-Credentials', 'false');
   res.set('Access-Control-Max-Age', '86400'); // 24 hours
   
   // Handle preflight
@@ -78,29 +78,15 @@ exports.api = onRequest({
         const referenceId = 'FF-' + Date.now();
         const formData = req.body;
         
-        // Send email notification (async, don't wait for it)
-        try {
-          await emailService.sendTemplatedEmail(
-            'new_inquiry',
-            'notifications@foamfighters.uk',
-            {
-              reference: referenceId,
-              customerName: `${formData.firstName || ''} ${formData.lastName || ''}`.trim(),
-              email: formData.email,
-              phone: formData.phone,
-              propertyType: formData.propertyType,
-              urgency: formData.urgency,
-              estimatedArea: formData.estimatedArea,
-              address: formData.address,
-              additionalInfo: formData.additionalInfo,
-              submittedAt: new Date().toLocaleString('en-GB')
-            }
-          );
-          console.log('Email notification sent successfully');
-        } catch (emailError) {
-          console.error('Failed to send email notification:', emailError);
-          // Don't fail the form submission if email fails
-        }
+        // TODO: Re-enable email notifications once CORS is working
+        console.log('Form data to be emailed:', {
+          reference: referenceId,
+          customerName: `${formData.firstName || ''} ${formData.lastName || ''}`.trim(),
+          email: formData.email,
+          phone: formData.phone,
+          propertyType: formData.propertyType,
+          urgency: formData.urgency
+        });
         
         // Return success response
         res.json({
