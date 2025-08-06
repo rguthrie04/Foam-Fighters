@@ -1,21 +1,8 @@
-# Logs
-logs
-*.log
+# Dependencies
+node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-firebase-debug.log*
-firebase-debug.*.log*
-
-# Firebase cache
-.firebase/
-
-# Firebase config
-
-# Uncomment this if you'd like others to create their own Firebase project.
-# For a team working on the same Firebase project(s), it is recommended to leave
-# it commented so all members can deploy to the same project(s) in .firebaserc.
-# .firebaserc
 
 # Runtime data
 pids
@@ -27,12 +14,12 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
-coverage
+coverage/
 
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
 # Bower dependency directory (https://bower.io/)
@@ -41,11 +28,15 @@ bower_components
 # node-waf configuration
 .lock-wscript
 
-# Compiled binary addons (http://nodejs.org/api/addons.html)
+# Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
 # Dependency directories
 node_modules/
+jspm_packages/
+
+# TypeScript v1 declaration files
+typings/
 
 # Optional npm cache directory
 .npm
@@ -64,6 +55,56 @@ node_modules/
 
 # dotenv environment variables file
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# dataconnect generated files
-.dataconnect
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build outputs
+dist/
+build/
+
+# Logs
+logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# CRITICAL: Never commit these sensitive files
+*.pem
+*.key
+*.p12
+*.p8
+firebase-config.js
+google-services.json
+GoogleService-Info.plist
+
+# API Keys and secrets (NEVER COMMIT THESE)
+**/firebase-config.js
+**/config/firebase.js
+**/*config*.js
+**/*secret*
+**/*key*
