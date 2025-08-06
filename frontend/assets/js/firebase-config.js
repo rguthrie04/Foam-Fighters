@@ -6,7 +6,7 @@
 // Firebase configuration - these should match your Firebase project
 // IMPORTANT: Never commit real API keys to version control!
 const firebaseConfig = {
-    apiKey: process.env.FIREBASE_API_KEY || "REPLACE_WITH_NEW_API_KEY_AFTER_REGENERATION",
+    apiKey: process.env.FIREBASE_API_KEY || "AIzaSyAq3391y-zteKePHTattVUDd3ghpdIDYU0", // TODO: Replace with NEW regenerated key
     authDomain: "foam-fighters-2700b.firebaseapp.com",
     projectId: "foam-fighters-2700b",
     storageBucket: "foam-fighters-2700b.firebasestorage.app",
