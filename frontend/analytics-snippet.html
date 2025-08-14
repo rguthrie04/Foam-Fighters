@@ -1,0 +1,127 @@
+<!-- Comprehensive Analytics Setup for Foam Fighters -->
+<!-- Place this in the <head> section of every page -->
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+<!-- End Google Tag Manager -->
+
+<!-- Google Analytics 4 with Enhanced Tracking -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Enhanced GA4 Configuration for Spray Foam Business
+  gtag('config', 'G-XXXXXXXXXX', {
+    // Core settings
+    send_page_view: true,
+    allow_google_signals: true,
+    allow_ad_personalization_signals: true,
+    
+    // Custom dimensions for SEO insights
+    custom_map: {
+      'custom_parameter_1': 'search_intent',
+      'custom_parameter_2': 'content_funnel_stage',
+      'custom_parameter_3': 'service_interest'
+    },
+    
+    // Enhanced measurement for better insights
+    enhanced_measurement: {
+      scrolls: true,
+      outbound_clicks: true,
+      site_search: true,
+      video_engagement: true,
+      file_downloads: true
+    }
+  });
+
+  // Custom tracking functions for spray foam business
+  function trackFoamEvent(eventName, parameters = {}) {
+    const pageType = window.location.pathname === '/' ? 'homepage' :
+                    window.location.pathname.includes('/blog/') ? 'blog_article' :
+                    window.location.pathname.includes('/blog') ? 'blog_index' :
+                    window.location.pathname.includes('/contact') ? 'contact' :
+                    'service_page';
+    
+    const contentCategory = document.title.toLowerCase().includes('health') ? 'health_safety' :
+                          document.title.toLowerCase().includes('mortgage') ? 'mortgage_finance' :
+                          document.title.toLowerCase().includes('cost') ? 'pricing_cost' :
+                          document.title.toLowerCase().includes('sell') ? 'property_sale' :
+                          'general';
+    
+    gtag('event', eventName, {
+      page_type: pageType,
+      content_category: contentCategory,
+      ...parameters
+    });
+  }
+
+  // Automatic phone click tracking
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        trackFoamEvent('phone_call_click', {
+          event_category: 'conversion',
+          phone_number: this.getAttribute('href').replace('tel:', ''),
+          click_location: this.closest('nav') ? 'navigation' : 
+                         this.closest('footer') ? 'footer' : 'content'
+        });
+      });
+    });
+  });
+</script>
+
+<!-- Microsoft Clarity for Heatmaps and Session Recordings -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "XXXXXXXXX");
+</script>
+
+<!-- Schema.org Enhanced for Analytics -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Foam Fighters Ltd",
+  "description": "Professional spray foam removal specialists helping UK property owners resolve health, mortgage and insurance issues",
+  "url": "https://foamfighters.uk",
+  "telephone": "+44-333-577-0132",
+  "email": "info@foamfighters.co.uk",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "GB"
+  },
+  "serviceArea": {
+    "@type": "Country",
+    "name": "United Kingdom"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Spray Foam Removal Services",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Professional Spray Foam Removal",
+          "description": "Complete spray foam insulation removal for health and mortgage purposes"
+        }
+      }
+    ]
+  }
+}
+</script>
+
+<!-- Place this immediately after opening <body> tag -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->

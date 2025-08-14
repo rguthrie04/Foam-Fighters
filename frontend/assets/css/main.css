@@ -45,6 +45,44 @@ body {
     overflow-x: hidden;
 }
 
+/* Image Optimization */
+.hero-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image-container img {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: transform;
+}
+
+.hero-image-container img:hover {
+    transform: scale(1.02);
+}
+
+/* Loading placeholder for better UX */
+.hero-image-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    z-index: 1;
+}
+
+.hero-image-container img[src] + ::before {
+    display: none;
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+
 /* Utility Classes */
 .bg-gradient-primary {
     background: var(--ff-gradient-primary) !important;

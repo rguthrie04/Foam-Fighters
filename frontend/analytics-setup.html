@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-FOAM123');</script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        // Enhanced GA4 Configuration
+        gtag('config', 'GA_MEASUREMENT_ID', {
+            // Enhanced ecommerce and conversions
+            send_page_view: true,
+            allow_google_signals: true,
+            allow_ad_personalization_signals: true,
+            
+            // Custom dimensions for SEO tracking
+            custom_map: {
+                'custom_parameter_1': 'page_type',
+                'custom_parameter_2': 'content_category',
+                'custom_parameter_3': 'user_intent'
+            },
+            
+            // Enhanced measurement
+            enhanced_measurement: {
+                scrolls: true,
+                outbound_clicks: true,
+                site_search: true,
+                video_engagement: true,
+                file_downloads: true
+            }
+        });
+
+        // Custom event tracking for spray foam business
+        function trackCustomEvent(eventName, parameters = {}) {
+            gtag('event', eventName, {
+                event_category: parameters.category || 'engagement',
+                event_label: parameters.label || '',
+                value: parameters.value || 0,
+                page_type: getPageType(),
+                content_category: getContentCategory(),
+                user_intent: getUserIntent(),
+                ...parameters
+            });
+        }
+
+        // Page type classification
+        function getPageType() {
+            const path = window.location.pathname;
+            if (path === '/' || path === '/index.html') return 'homepage';
+            if (path.includes('/blog/')) return 'blog_article';
+            if (path === '/blog.html' || path === '/blog') return 'blog_index';
+            if (path.includes('/contact')) return 'contact';
+            if (path.includes('/quote') || path.includes('quote-form')) return 'quote_form';
+            if (path.includes('/mortgage') || path.includes('/insurance')) return 'service_info';
+            return 'other';
+        }
+
+        // Content category classification
+        function getContentCategory() {
+            const path = window.location.pathname;
+            const title = document.title.toLowerCase();
+            
+            if (title.includes('health') || title.includes('toxic') || title.includes('risk')) return 'health_safety';
+            if (title.includes('mortgage') || title.includes('lender') || title.includes('bank')) return 'mortgage_finance';
+            if (title.includes('cost') || title.includes('price') || title.includes('£')) return 'pricing_cost';
+            if (title.includes('sell') || title.includes('sale') || title.includes('market')) return 'property_sale';
+            if (title.includes('removal') || title.includes('process')) return 'removal_service';
+            return 'general';
+        }
+
+        // User intent classification based on entry point
+        function getUserIntent() {
+            const referrer = document.referrer;
+            const utm_source = new URLSearchParams(window.location.search).get('utm_source');
+            const searchParams = new URLSearchParams(window.location.search);
+            
+            // Organic search intent
+            if (referrer.includes('google.com') || referrer.includes('bing.com')) {
+                if (document.title.toLowerCase().includes('health') || document.title.toLowerCase().includes('risk')) {
+                    return 'health_concern';
+                } else if (document.title.toLowerCase().includes('mortgage') || document.title.toLowerCase().includes('refused')) {
+                    return 'mortgage_problem';
+                } else if (document.title.toLowerCase().includes('cost') || document.title.toLowerCase().includes('price')) {
+                    return 'cost_research';
+                } else if (document.title.toLowerCase().includes('sell')) {
+                    return 'selling_intent';
+                }
+                return 'information_seeking';
+            }
+            
+            // Paid traffic intent
+            if (utm_source) return 'paid_traffic';
+            
+            // Direct traffic
+            if (!referrer) return 'direct_navigation';
+            
+            return 'referral_traffic';
+        }
+
+        // Track page views with enhanced data
+        gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_type: getPageType(),
+            content_category: getContentCategory(),
+            user_intent: getUserIntent()
+        });
+    </script>
+
+    <!-- Microsoft Clarity -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "CLARITY_PROJECT_ID");
+    </script>
+
+    <!-- Hotjar Tracking (Optional - for heatmaps) -->
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:HOTJAR_SITE_ID,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+
+    <title>Analytics Setup - Foam Fighters</title>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-FOAM123"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <script>
+        // Advanced tracking functions for spray foam business
+
+        // 1. Phone call tracking
+        function trackPhoneClick(phoneNumber, source = 'unknown') {
+            trackCustomEvent('phone_click', {
+                category: 'conversion',
+                label: phoneNumber,
+                source: source,
+                page_type: getPageType(),
+                content_category: getContentCategory()
+            });
+        }
+
+        // 2. Form interaction tracking
+        function trackFormStart(formName) {
+            trackCustomEvent('form_start', {
+                category: 'conversion',
+                label: formName,
+                form_type: formName
+            });
+        }
+
+        function trackFormSubmit(formName) {
+            trackCustomEvent('form_submit', {
+                category: 'conversion',
+                label: formName,
+                form_type: formName,
+                value: 100 // Assign value to form submissions
+            });
+        }
+
+        // 3. Content engagement tracking
+        function trackContentEngagement(action, content_type) {
+            trackCustomEvent('content_engagement', {
+                category: 'engagement',
+                label: content_type,
+                action: action,
+                content_category: getContentCategory()
+            });
+        }
+
+        // 4. Service interest tracking
+        function trackServiceInterest(serviceName) {
+            trackCustomEvent('service_interest', {
+                category: 'business',
+                label: serviceName,
+                service_type: serviceName
+            });
+        }
+
+        // 5. Blog article engagement
+        function trackBlogEngagement(action, articleTitle) {
+            trackCustomEvent('blog_engagement', {
+                category: 'content',
+                label: articleTitle,
+                action: action,
+                content_category: getContentCategory()
+            });
+        }
+
+        // 6. Quote request tracking
+        function trackQuoteRequest(method, value = 0) {
+            trackCustomEvent('quote_request', {
+                category: 'conversion',
+                label: method,
+                value: value,
+                conversion_type: 'quote_request'
+            });
+        }
+
+        // 7. Scroll depth tracking (enhanced)
+        let scrollDepths = [25, 50, 75, 90, 100];
+        let scrollTracker = [];
+
+        window.addEventListener('scroll', function() {
+            let scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+            
+            scrollDepths.forEach(function(depth) {
+                if (scrollPercent >= depth && !scrollTracker.includes(depth)) {
+                    scrollTracker.push(depth);
+                    trackCustomEvent('scroll_depth', {
+                        category: 'engagement',
+                        label: depth + '%',
+                        value: depth,
+                        page_type: getPageType(),
+                        content_category: getContentCategory()
+                    });
+                }
+            });
+        });
+
+        // 8. Time on page tracking (enhanced)
+        let timeOnPageIntervals = [30, 60, 120, 300, 600]; // seconds
+        let timeTracker = [];
+        let startTime = Date.now();
+
+        timeOnPageIntervals.forEach(function(interval) {
+            setTimeout(function() {
+                if (!timeTracker.includes(interval)) {
+                    timeTracker.push(interval);
+                    trackCustomEvent('time_on_page', {
+                        category: 'engagement',
+                        label: interval + 's',
+                        value: interval,
+                        page_type: getPageType(),
+                        content_category: getContentCategory()
+                    });
+                }
+            }, interval * 1000);
+        });
+
+        // 9. Search Console integration helper
+        function trackSearchConsoleClick(query, position, url) {
+            trackCustomEvent('search_console_click', {
+                category: 'seo',
+                label: query,
+                search_query: query,
+                search_position: position,
+                landing_url: url
+            });
+        }
+
+        // 10. A/B testing framework
+        function trackABTest(testName, variant) {
+            trackCustomEvent('ab_test', {
+                category: 'optimization',
+                label: testName,
+                test_name: testName,
+                variant: variant
+            });
+        }
+
+        // Auto-setup click tracking for phone numbers
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track all phone number clicks
+            document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    const phoneNumber = this.getAttribute('href').replace('tel:', '');
+                    const source = this.closest('nav') ? 'navigation' : 
+                                  this.closest('footer') ? 'footer' : 
+                                  this.closest('header') ? 'header' : 'content';
+                    trackPhoneClick(phoneNumber, source);
+                });
+            });
+
+            // Track all external links
+            document.querySelectorAll('a[href^="http"]').forEach(function(el) {
+                if (!el.href.includes(window.location.hostname)) {
+                    el.addEventListener('click', function() {
+                        trackCustomEvent('external_link', {
+                            category: 'navigation',
+                            label: this.href,
+                            external_url: this.href
+                        });
+                    });
+                }
+            });
+
+            // Track form interactions
+            document.querySelectorAll('form').forEach(function(form) {
+                const formName = form.getAttribute('id') || form.getAttribute('class') || 'unnamed_form';
+                
+                form.addEventListener('focusin', function() {
+                    trackFormStart(formName);
+                }, { once: true });
+
+                form.addEventListener('submit', function() {
+                    trackFormSubmit(formName);
+                });
+            });
+
+            // Track blog article reading behavior
+            if (getPageType() === 'blog_article') {
+                const articleTitle = document.querySelector('h1') ? document.querySelector('h1').textContent : document.title;
+                
+                // Track article start
+                trackBlogEngagement('article_start', articleTitle);
+                
+                // Track article completion (when user reaches bottom)
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            trackBlogEngagement('article_complete', articleTitle);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+                
+                const footer = document.querySelector('footer');
+                if (footer) observer.observe(footer);
+            }
+        });
+
+        // Error tracking
+        window.addEventListener('error', function(e) {
+            trackCustomEvent('javascript_error', {
+                category: 'technical',
+                label: e.message,
+                error_message: e.message,
+                error_filename: e.filename,
+                error_line: e.lineno
+            });
+        });
+
+        // Page performance tracking
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const perfData = performance.getEntriesByType('navigation')[0];
+                trackCustomEvent('page_performance', {
+                    category: 'technical',
+                    label: 'load_time',
+                    value: Math.round(perfData.loadEventEnd - perfData.loadEventStart),
+                    load_time: Math.round(perfData.loadEventEnd - perfData.loadEventStart),
+                    dom_content_loaded: Math.round(perfData.domContentLoadedEventEnd - perfData.domContentLoadedEventStart)
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

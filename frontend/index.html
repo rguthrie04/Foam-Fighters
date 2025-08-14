@@ -3,27 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="app-version" content="1.0.0">
+
+    <meta name="app-version" content="1.0.1">
+    <!-- GA4 Analytics Updated: 2025-01-06 -->
     
     <!-- SEO Meta Tags -->
-    <title>Foam Fighters - Professional Spray Foam Removal | UK Specialists</title>
-    <meta name="description" content="Professional spray foam removal services across the UK. Expert removal of problematic spray foam insulation. Get your property back to sellable condition.">
+    <title>Spray Foam Removal UK - Fix Mortgage Refusals | Foam Fighters</title>
+    <meta name="description" content="Can't sell your house due to spray foam? Mortgage refused? Professional spray foam removal UK from £2,500. Fix mortgage refusals and property sale issues with certified removal.">
     <meta name="keywords" content="spray foam removal, foam insulation removal, SPF removal, property selling, mortgage issues, UK">
     <meta name="author" content="Foam Fighters Ltd">
     
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-FOAM2025');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE4005YEYE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Basic consent mode setup for UK compliance
+      gtag('consent', 'default', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'functionality_storage': 'granted',
+        'security_storage': 'granted'
+      });
+
+      gtag('config', 'G-CE4005YEYE', {
+        send_page_view: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        enhanced_measurement: {
+          scrolls: true,
+          outbound_clicks: true,
+          site_search: true,
+          video_engagement: true,
+          file_downloads: true
+        }
+      });
+
+      // Spray foam business tracking
+      function trackFoamEvent(eventName, parameters = {}) {
+        const pageType = window.location.pathname === '/' ? 'homepage' :
+                        window.location.pathname.includes('/blog/') ? 'blog_article' :
+                        window.location.pathname.includes('/blog') ? 'blog_index' :
+                        window.location.pathname.includes('/contact') ? 'contact' : 'service_page';
+        
+        gtag('event', eventName, {
+          page_type: pageType,
+          content_category: document.title.toLowerCase().includes('health') ? 'health_safety' :
+                          document.title.toLowerCase().includes('mortgage') ? 'mortgage_finance' :
+                          document.title.toLowerCase().includes('cost') ? 'pricing_cost' : 'general',
+          ...parameters
+        });
+      }
+
+      // Phone click tracking
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            trackFoamEvent('phone_call_click', {
+              event_category: 'conversion',
+              phone_number: '0333-577-0132',
+              click_location: this.closest('nav') ? 'navigation' : 
+                             this.closest('footer') ? 'footer' : 'content'
+            });
+          });
+        });
+
+        // Form tracking
+        document.querySelectorAll('form').forEach(function(form) {
+          form.addEventListener('submit', function() {
+            trackFoamEvent('form_submission', {
+              event_category: 'conversion',
+              form_type: this.getAttribute('id') || 'quote_form'
+            });
+          });
+        });
+      });
+    </script>
+
+    <!-- Microsoft Clarity - TO BE CONFIGURED -->
+    <!-- Placeholder removed - need to set up legitimate Clarity account -->
+    <!-- Visit https://clarity.microsoft.com to create your project -->
+    
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://foamfighters.co.uk/">
-    <meta property="og:title" content="Foam Fighters - Professional Spray Foam Removal">
-    <meta property="og:description" content="Expert spray foam removal services to get your property back to sellable condition. Professional, certified, and insured.">
-    <meta property="og:image" content="https://foamfighters.co.uk/assets/images/og-image.jpg">
+    <meta property="og:url" content="https://foamfighters.uk/">
+    <meta property="og:title" content="Spray Foam Removal UK - Fix Mortgage Refusals | Foam Fighters">
+    <meta property="og:description" content="Can't sell your house due to spray foam? Mortgage refused? Professional spray foam removal from £2,500. Restore property value and fix lender issues.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://foamfighters.co.uk/">
-    <meta property="twitter:title" content="Foam Fighters - Professional Spray Foam Removal">
-    <meta property="twitter:description" content="Expert spray foam removal services to get your property back to sellable condition.">
-    <meta property="twitter:image" content="https://foamfighters.co.uk/assets/images/og-image.jpg">
+    <meta property="twitter:url" content="https://foamfighters.uk/">
+    <meta property="twitter:title" content="Spray Foam Removal UK - Fix Mortgage Refusals">
+    <meta property="twitter:description" content="Professional spray foam removal to fix mortgage refusals and property sale issues. From £2,500 with certification.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -174,6 +259,11 @@
     <script src="/assets/js/firebase-config.js" type="module"></script>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-FOAM2025"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <!-- Skip to main content for accessibility -->
     <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
 
@@ -211,6 +301,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/mortgage-insurance.html">Mortgage & Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog.html">Blog</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact.html">Contact</a>
@@ -269,10 +362,12 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="hero-image-container">
-                            <img src="/assets/images/hero-spray-foam-removal.jpg" 
+                            <img src="/assets/images/spray foam messy.jpg"
                                  alt="Professional spray foam removal in progress" 
                                  class="img-fluid rounded shadow-lg"
-                                 loading="eager">
+                                 loading="eager"
+                                 style="max-width: 100%; height: auto; object-fit: cover; aspect-ratio: 4/3;"
+                                 width="800" height="600">
                         </div>
                     </div>
                 </div>

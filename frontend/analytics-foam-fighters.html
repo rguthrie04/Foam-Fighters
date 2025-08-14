@@ -1,0 +1,81 @@
+<!-- Foam Fighters Analytics Tracking - Add to ALL pages in <head> section -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CE4005YEYE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  // Basic consent mode setup for UK compliance
+  gtag('consent', 'default', {
+    'analytics_storage': 'granted',
+    'ad_storage': 'denied',
+    'ad_user_data': 'denied',
+    'ad_personalization': 'denied',
+    'functionality_storage': 'granted',
+    'security_storage': 'granted'
+  });
+
+  gtag('config', 'G-CE4005YEYE', {
+    send_page_view: true,
+    allow_google_signals: false,
+    allow_ad_personalization_signals: false,
+    enhanced_measurement: {
+      scrolls: true,
+      outbound_clicks: true,
+      site_search: true,
+      video_engagement: true,
+      file_downloads: true
+    }
+  });
+
+  // Spray foam business tracking functions
+  function trackFoamEvent(eventName, parameters = {}) {
+    const pageType = window.location.pathname === '/' ? 'homepage' :
+                    window.location.pathname.includes('/blog/') ? 'blog_article' :
+                    window.location.pathname.includes('/blog') ? 'blog_index' :
+                    window.location.pathname.includes('/contact') ? 'contact' : 'service_page';
+    
+    gtag('event', eventName, {
+      page_type: pageType,
+      content_category: document.title.toLowerCase().includes('health') ? 'health_safety' :
+                      document.title.toLowerCase().includes('mortgage') ? 'mortgage_finance' :
+                      document.title.toLowerCase().includes('cost') ? 'pricing_cost' : 'general',
+      ...parameters
+    });
+  }
+
+  // Automatic phone click tracking
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        trackFoamEvent('phone_call_click', {
+          event_category: 'conversion',
+          phone_number: '0333-577-0132',
+          click_location: this.closest('nav') ? 'navigation' : 
+                         this.closest('footer') ? 'footer' : 'content'
+        });
+      });
+    });
+
+    // Form submission tracking
+    document.querySelectorAll('form').forEach(function(form) {
+      form.addEventListener('submit', function() {
+        trackFoamEvent('form_submission', {
+          event_category: 'conversion',
+          form_type: this.getAttribute('id') || 'quote_form'
+        });
+      });
+    });
+  });
+</script>
+
+<!-- Microsoft Clarity for heatmaps and session recordings -->
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "nz8k8m7g3e");
+</script>

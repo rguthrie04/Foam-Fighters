@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="app-version" content="1.0.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Spray Foam Removal Blog - Expert Guides & UK Industry News | Foam Fighters</title>
+    <meta name="description" content="Expert spray foam removal guides, UK property market insights, and professional advice. Stay informed about mortgage issues, removal costs, and property solutions.">
+    <meta name="keywords" content="spray foam removal blog, UK property advice, mortgage issues spray foam, removal costs, professional guides">
+    <meta name="author" content="Foam Fighters Ltd">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CE4005YEYE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Basic consent mode setup for UK compliance
+      gtag('consent', 'default', {
+        'analytics_storage': 'granted',
+        'ad_storage': 'denied',
+        'ad_user_data': 'denied',
+        'ad_personalization': 'denied',
+        'functionality_storage': 'granted',
+        'security_storage': 'granted'
+      });
+
+      gtag('config', 'G-CE4005YEYE', {
+        send_page_view: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        enhanced_measurement: {
+          scrolls: true,
+          outbound_clicks: true,
+          site_search: true,
+          video_engagement: true,
+          file_downloads: true
+        }
+      });
+
+      // Blog-specific tracking
+      function trackFoamEvent(eventName, parameters = {}) {
+        gtag('event', eventName, {
+          page_type: 'blog_index',
+          content_category: 'blog_navigation',
+          ...parameters
+        });
+      }
+
+      // Track blog article clicks
+      document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('a[href*="/blog/"]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            trackFoamEvent('blog_article_click', {
+              event_category: 'engagement',
+              article_url: this.getAttribute('href'),
+              click_text: this.textContent.trim()
+            });
+          });
+        });
+
+        // Phone click tracking
+        document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
+          el.addEventListener('click', function() {
+            trackFoamEvent('phone_call_click', {
+              event_category: 'conversion',
+              phone_number: '0333-577-0132',
+              source_page: 'blog_index'
+            });
+          });
+        });
+      });
+    </script>
+
+    <!-- Microsoft Clarity - TO BE CONFIGURED -->
+    <!-- Visit https://clarity.microsoft.com to create your project -->
+    <!-- Replace with your actual Clarity project ID -->
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://foamfighters.uk/blog.html">
+    <meta property="og:title" content="Spray Foam Removal Blog - Expert Guides & UK Industry News">
+    <meta property="og:description" content="Expert spray foam removal guides, UK property market insights, and professional advice for homeowners.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://foamfighters.uk/blog.html">
+    <meta property="twitter:title" content="Spray Foam Removal Blog - Expert Guides">
+    <meta property="twitter:description" content="Expert spray foam removal guides and UK property market insights.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #1a365d;
+            --accent-color: #e53e3e;
+            --success-color: #38a169;
+            --warning-color: #d69e2e;
+            --light-bg: #f7fafc;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            color: var(--primary-color) !important;
+        }
+        
+        .text-primary-custom {
+            color: var(--primary-color) !important;
+        }
+        
+        .bg-primary-custom {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .btn-primary-custom {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary-custom:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .blog-hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0;
+        }
+        
+        .article-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .category-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+        }
+        
+        .blog-meta {
+            font-size: 0.875rem;
+            color: #6c757d;
+        }
+        
+        footer {
+            background-color: var(--secondary-color) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="/">
+                <i class="fas fa-shield-alt text-primary-custom me-2"></i>
+                Foam Fighters
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/why-spf-problem.html">Why SPF is a Problem</a></li>
+                            <li><a class="dropdown-item" href="/spf-guide.html">SPF Guide</a></li>
+                            <li><a class="dropdown-item" href="/removal-process.html">Removal Process</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery.html">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/case-studies.html">Case Studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/mortgage-insurance.html">Mortgage & Insurance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact.html">Contact</a>
+                    </li>
+                </ul>
+                
+                <div class="ms-3">
+                    <a href="tel:03335770132" class="btn btn-outline-primary me-2">
+                        <i class="fas fa-phone"></i> 0333 577 0132
+                    </a>
+                    <a href="/#quote-form" class="btn btn-primary-custom">
+                        Get Quote
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="display-4 fw-bold mb-4">Spray Foam Removal Expert Guides</h1>
+                    <p class="lead mb-4">
+                        Professional insights, industry updates, and comprehensive guides to help UK property owners navigate spray foam removal challenges.
+                    </p>
+                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-home me-2"></i>Property Solutions
+                        </span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-university me-2"></i>Mortgage Guidance
+                        </span>
+                        <span class="badge bg-light text-dark px-3 py-2">
+                            <i class="fas fa-pound-sign me-2"></i>Cost Analysis
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="text-primary-custom mb-3">Featured Article</h2>
+                        <p class="text-muted">Critical health information every homeowner needs to know</p>
+                    </div>
+                    
+                    <div class="card border-0 shadow-lg">
+                        <div class="row g-0">
+                            <div class="col-md-5">
+                                <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                     class="img-fluid rounded-start h-100" 
+                                     style="object-fit: cover;"
+                                     alt="Indoor air quality concerns and health risks in family homes">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body d-flex flex-column h-100">
+                                    <div class="mb-3">
+                                        <span class="category-badge bg-danger text-white">Health Alert</span>
+                                        <span class="blog-meta ms-3">
+                                            <i class="fas fa-calendar me-1"></i> Jan 2025
+                                        </span>
+                                    </div>
+                                    <h3 class="card-title">
+                                        <a href="/blog/spray-foam-health-risks-hidden-dangers.html" class="text-decoration-none">
+                                            Spray Foam Health Risks: Hidden Dangers in Your Home
+                                        </a>
+                                    </h3>
+                                    <p class="card-text">Beyond mortgage problems lies a more serious concern: spray foam insulation poses significant health risks to you and your family. Here's what the industry doesn't want you to know.</p>
+                                    <div class="mt-auto">
+                                        <div class="blog-meta mb-3">
+                                            <i class="fas fa-clock me-1"></i> 20 min read
+                                            <i class="fas fa-exclamation-triangle text-danger ms-3 me-1"></i> Health Critical
+                                        </div>
+                                        <a href="/blog/spray-foam-health-risks-hidden-dangers.html" class="btn btn-danger">
+                                            Read Health Guide <i class="fas fa-arrow-right ms-1"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest Articles -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-primary-custom mb-3">Latest Expert Guides</h2>
+                <p class="text-muted">In-depth analysis and professional guidance for UK property owners</p>
+            </div>
+            
+            <div class="row">
+                <!-- Article 1: Health Risks -->
+                <article class="col-lg-3 col-md-6 mb-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"
+                             alt="Home health and safety concerns with indoor air quality">
+                        <div class="card-body d-flex flex-column">
+                            <div class="article-meta mb-3">
+                                <span class="category-badge bg-danger text-white">Health</span>
+                                <span class="blog-meta ms-3">
+                                    <i class="fas fa-calendar me-1"></i> Jan 2025
+                                </span>
+                            </div>
+                            <h5 class="card-title">
+                                <a href="/blog/spray-foam-health-risks-hidden-dangers.html" class="text-decoration-none text-dark">
+                                    Spray Foam Health Risks: Hidden Dangers in Your Home
+                                </a>
+                            </h5>
+                            <p class="card-text">Critical health risks: respiratory issues, toxic chemicals, and family safety concerns from spray foam insulation.</p>
+                            <div class="mt-auto">
+                                <div class="blog-meta mb-2">
+                                    <i class="fas fa-clock me-1"></i> 20 min read
+                                </div>
+                                <a href="/blog/spray-foam-health-risks-hidden-dangers.html" class="btn btn-outline-danger btn-sm">
+                                    Read Health Alert <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 2: Lender Policies -->
+                <article class="col-lg-3 col-md-6 mb-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"
+                             alt="UK bank building representing lender policies and mortgage decisions">
+                        <div class="card-body d-flex flex-column">
+                            <div class="article-meta mb-3">
+                                <span class="category-badge bg-danger text-white">Lenders</span>
+                                <span class="blog-meta ms-3">
+                                    <i class="fas fa-calendar me-1"></i> Jan 2025
+                                </span>
+                            </div>
+                            <h5 class="card-title">
+                                <a href="/blog/why-uk-lenders-refuse-spray-foam.html" class="text-decoration-none text-dark">
+                                    Why UK Lenders Refuse Spray Foam Properties: Inside Bank Policies
+                                </a>
+                            </h5>
+                            <p class="card-text">Inside look at UK mortgage lender policies, risk assessments, and the specific concerns driving spray foam property refusals.</p>
+                            <div class="mt-auto">
+                                <div class="blog-meta mb-2">
+                                    <i class="fas fa-clock me-1"></i> 18 min read
+                                </div>
+                                <a href="/blog/why-uk-lenders-refuse-spray-foam.html" class="btn btn-outline-primary btn-sm">
+                                    Read Analysis <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 3: Cost Guide -->
+                <article class="col-lg-3 col-md-6 mb-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"
+                             alt="Professional cost analysis and pricing breakdown">
+                        <div class="card-body d-flex flex-column">
+                            <div class="article-meta mb-3">
+                                <span class="category-badge bg-warning text-dark">Costs</span>
+                                <span class="blog-meta ms-3">
+                                    <i class="fas fa-calendar me-1"></i> Jan 2025
+                                </span>
+                            </div>
+                            <h5 class="card-title">
+                                <a href="/blog/spray-foam-removal-cost-uk.html" class="text-decoration-none text-dark">
+                                    Spray Foam Removal Cost UK: Complete 2025 Price Guide
+                                </a>
+                            </h5>
+                            <p class="card-text">Complete breakdown of spray foam removal costs: £2,500-£12,000+ with detailed pricing by property type, foam type, and regional variations.</p>
+                            <div class="mt-auto">
+                                <div class="blog-meta mb-2">
+                                    <i class="fas fa-clock me-1"></i> 12 min read
+                                </div>
+                                <a href="/blog/spray-foam-removal-cost-uk.html" class="btn btn-outline-primary btn-sm">
+                                    Read Cost Guide <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Article 4: Selling Guide -->
+                <article class="col-lg-3 col-md-6 mb-4">
+                    <div class="card article-card h-100 border-0 shadow-sm">
+                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             class="card-img-top" 
+                             style="height: 200px; object-fit: cover;"
+                             alt="House for sale with property challenges">
+                        <div class="card-body d-flex flex-column">
+                            <div class="article-meta mb-3">
+                                <span class="category-badge bg-primary text-white">Property Sale</span>
+                                <span class="blog-meta ms-3">
+                                    <i class="fas fa-calendar me-1"></i> Jan 2025
+                                </span>
+                            </div>
+                            <h5 class="card-title">
+                                <a href="/blog/can-you-sell-house-spray-foam.html" class="text-decoration-none text-dark">
+                                    Can You Sell a House with Spray Foam Insulation?
+                                </a>
+                            </h5>
+                            <p class="card-text">Reality check: 70% fewer buyers, 6-12 months longer on market. Complete guide to selling options and strategies that work.</p>
+                            <div class="mt-auto">
+                                <div class="blog-meta mb-2">
+                                    <i class="fas fa-clock me-1"></i> 10 min read
+                                </div>
+                                <a href="/blog/can-you-sell-house-spray-foam.html" class="btn btn-outline-primary btn-sm">
+                                    Read Selling Guide <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+
+        <!-- Coming Soon Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="text-center p-5 bg-light rounded">
+                    <h3 class="text-primary-custom mb-3">
+                        <i class="fas fa-plus-circle me-2"></i>More Expert Guides Coming Soon
+                    </h3>
+                    <p class="lead text-muted mb-4">
+                        We're continuously adding new in-depth guides covering spray foam removal processes, insurance issues, and professional safety standards.
+                    </p>
+                    <div class="row justify-content-center">
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-cogs text-primary-custom fs-2 mb-2"></i>
+                                <h6>Removal Process</h6>
+                                <small class="text-muted">Step-by-step breakdown</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-shield-alt text-primary-custom fs-2 mb-2"></i>
+                                <h6>Insurance Issues</h6>
+                                <small class="text-muted">Coverage challenges</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="p-3 border rounded">
+                                <i class="fas fa-university text-primary-custom fs-2 mb-2"></i>
+                                <h6>Lender Policies</h6>
+                                <small class="text-muted">Why banks refuse</small>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="mb-0">
+                        <a href="/contact.html" class="btn btn-primary-custom">
+                            Get Expert Advice <i class="fas fa-arrow-right ms-1"></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h5 class="fw-bold">
+                    <i class="fas fa-shield-alt text-warning me-2"></i>
+                    Foam Fighters
+                </h5>
+                <p class="text-light-emphasis">Professional spray foam removal specialists helping UK property owners resolve mortgage and insurance issues caused by problematic SPF insulation.</p>
+            </div>
+            
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold">Services</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/why-spf-problem.html" class="text-light-emphasis text-decoration-none">Why SPF is a Problem</a></li>
+                    <li><a href="/spf-guide.html" class="text-light-emphasis text-decoration-none">SPF Guide</a></li>
+                    <li><a href="/removal-process.html" class="text-light-emphasis text-decoration-none">Removal Process</a></li>
+                    <li><a href="/gallery.html" class="text-light-emphasis text-decoration-none">Gallery</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-2 mb-4">
+                <h6 class="fw-bold">Information</h6>
+                <ul class="list-unstyled">
+                    <li><a href="/case-studies.html" class="text-light-emphasis text-decoration-none">Case Studies</a></li>
+                    <li><a href="/mortgage-insurance.html" class="text-light-emphasis text-decoration-none">Mortgage & Insurance</a></li>
+                    <li><a href="/blog.html" class="text-light-emphasis text-decoration-none">Blog</a></li>
+                    <li><a href="/contact.html" class="text-light-emphasis text-decoration-none">Contact</a></li>
+                    <li><a href="/privacy.html" class="text-light-emphasis text-decoration-none">Privacy Policy</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <h6 class="fw-bold">Contact Information</h6>
+                <div class="mb-3">
+                    <i class="fas fa-phone text-warning me-2"></i>
+                    <a href="tel:03335770132" class="text-light-emphasis text-decoration-none">0333 577 0132</a>
+                </div>
+                <div class="mb-3">
+                    <i class="fas fa-envelope text-warning me-2"></i>
+                    <a href="mailto:info@foamfighters.co.uk" class="text-light-emphasis text-decoration-none">info@foamfighters.co.uk</a>
+                </div>
+                <div class="mb-3">
+                    <i class="fas fa-clock text-warning me-2"></i>
+                    <span class="text-light-emphasis">Mon-Fri: 8:00 AM - 6:00 PM</span>
+                </div>
+                
+                <div class="mt-4">
+                    <h6 class="fw-bold">Emergency Service</h6>
+                    <p class="text-light-emphasis small">For urgent property sale situations, we offer emergency response within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+        
+        <hr class="my-4">
+        
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <p class="mb-0 text-light-emphasis">© 2024 Foam Fighters Ltd. All rights reserved. Company Registration: 16612986</p>
+                <p class="mb-0 text-light-emphasis small">Professional spray foam removal specialists | Fully insured & certified</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

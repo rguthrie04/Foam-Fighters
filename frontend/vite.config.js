@@ -16,13 +16,19 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './index.html',
+        blog: './blog.html',
         contact: './contact.html',
         gallery: './gallery.html',
         'case-studies': './case-studies.html',
         'mortgage-insurance': './mortgage-insurance.html',
         'removal-process': './removal-process.html',
         'spf-guide': './spf-guide.html',
-        'why-spf-problem': './why-spf-problem.html'
+        'why-spf-problem': './why-spf-problem.html',
+        'blog-mortgage-guide': './blog/mortgage-refused-spray-foam-guide.html',
+        'blog-cost-guide': './blog/spray-foam-removal-cost-uk.html',
+        'blog-selling-guide': './blog/can-you-sell-house-spray-foam.html',
+        'blog-health-risks': './blog/spray-foam-health-risks-hidden-dangers.html',
+        'blog-lender-policies': './blog/why-uk-lenders-refuse-spray-foam.html'
       },
       output: {
         // Code splitting and chunk optimization
