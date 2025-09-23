@@ -668,7 +668,7 @@ class FoamFightersApp {
                     <div class="modal-body">
                         <p>We're here to help! Choose your preferred way to get in touch:</p>
                         <div class="d-grid gap-2">
-                            <a href="tel:0333577032" class="btn btn-primary">
+                            <a href="tel:03335770132" class="btn btn-primary">
                                 <i class="fas fa-phone me-2"></i>Call: 0333 577 0132
                             </a>
                             <a href="mailto:info@foamfighters.co.uk" class="btn btn-outline-primary">
